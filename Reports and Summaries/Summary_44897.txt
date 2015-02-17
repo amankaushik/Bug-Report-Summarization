@@ -1,0 +1,11 @@
+Exit code = 1
+C:\Windows\system32\javaw.exe -cp C:\eclipse\startup.jar
+org.eclipse.core.launcher.Main -os win32 -ws win32 -arch x86 -showsplash
+C:\eclipse\eclipse.exe -showsplash 600
+
+running the stated command on the command line using java.exe yeilds the following:
+Exception in thread "main" java.lang.IllegalAccessError: try to access method
+java.io.FileOutputStream.<init>(Ljava/io/File;Z)V from
+ class org.eclipse.core.launcher.Main
+        at org.eclipse.core.launcher.Main.isAlreadyRunning(Main.java:1502)
+        at org.eclipse.core.launcher.Main.main(Main.java:595)You need at least a 1.4 Java VM to run 3.0 M4 or greater.

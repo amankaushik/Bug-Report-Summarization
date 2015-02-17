@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>197422</bug_id>
+          
+          <creation_ts>2007-07-22 11:12:00 -0400</creation_ts>
+          <short_desc>[LinkedResources] Cannot create a linked resource to a file with whitespace when using a link variable</short_desc>
+          <delta_ts>2011-10-24 05:33:15 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>3.3</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Alex Freidin">freidin.alex</reporter>
+          <assigned_to name="Platform UI Triaged">platform-ui-triaged</assigned_to>
+          
+          <qa_contact name="Oleg Besedin">ob1.eclipse</qa_contact>
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>1028359</commentid>
+    <comment_count>0</comment_count>
+    <who name="Alex Freidin">freidin.alex</who>
+    <bug_when>2007-07-22 11:12:59 -0400</bug_when>
+    <thetext>Build ID: I20070621-1340
+
+Steps To Reproduce:
+1. Open File &gt; New &gt; File
+2. Click Advanced, select the checkbox and select the parent project.
+3. Click Variables... &gt; New and create a link variable pointing to some directory.
+4. Use the link variable to create a new link. If the linked file has a whitespace, e.g. &quot;my text.txt&quot;, than a link would look like MYDIR/my text.txt.
+5. The wizard says that the resource doesn't exist, even if it is in the file system. And when Finish is pressed, a number of error messages are displayed and invalid link is created. For files without whitespace the wizard works OK.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1635420</commentid>
+    <comment_count>1</comment_count>
+    <who name="Boris Bokowski">bokowski</who>
+    <bug_when>2009-11-26 16:23:22 -0500</bug_when>
+    <thetext>Oleg is now responsible for watching bugs in the [LinkedResources] component area.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>2015223</commentid>
+    <comment_count>2</comment_count>
+    <who name="Alex Freidin">freidin.alex</who>
+    <bug_when>2011-10-24 05:33:15 -0400</bug_when>
+    <thetext>This bug appears to be fixed. Tested with Eclipse 3.6.1 and 3.7.1. Closing.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

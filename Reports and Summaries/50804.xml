@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>50804</bug_id>
+          
+          <creation_ts>2004-01-28 16:49:00 -0500</creation_ts>
+          <short_desc>Preferences are inaccessible without loading the Plugin runtime class</short_desc>
+          <delta_ts>2005-03-02 10:02:02 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows 2000</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.0 M9</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Michael D. Elder">mdelder</reporter>
+          <assigned_to name="DJ Houghton">dj_houghton</assigned_to>
+          <cc>danberg</cc>
+    
+    <cc>dj_houghton</cc>
+    
+    <cc>schacher</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>221803</commentid>
+    <comment_count>0</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-01-28 16:49:58 -0500</bug_when>
+    <thetext>We have a situation where we would like access to the Preference Store in a way
+that does not require the loading or even the existence of a Plugin. Ideally,
+the functionality would be exposed in a way that we could (at least) look up
+existing preferences using a plugin-id and preference name. We have a *nice to
+have* feature where we could automatically migrate preferences from existing
+workspaces in new versions of the product. However, refactoring and redesigns
+from the previous version have motivated the change of plugin names and
+preference names. We have the necessary framework to invoke the migration, but
+we need access to the existing values and ideally we would be able to transfer
+and persist those values for new plugins.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>221829</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-01-28 17:23:04 -0500</bug_when>
+    <thetext>Something to keep in mind for the new user settings story.
+
+Preferences can be loaded without loading a plugin, as this is what
+Preferences.importPreferences/exportPreferences does.  Preferences can be read
+by anyone since it's just a .properties file, but there is no API to obtain the
+location of that file for a given plugin.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>255177</commentid>
+    <comment_count>2</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2004-04-07 18:17:18 -0400</bug_when>
+    <thetext>See org.eclipse.core.runtime.preferences.IPreferencesService. This interface
+allows the navigation to the appropriate preference node from the root node.
+
+Preferences from Eclipse 2.1 workspaces are automatically migrated to the new
+format the first time they are accessed.
+
+An FAQ can be found on the Platform/Core web site.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>407676</commentid>
+    <comment_count>3</comment_count>
+    <who name="Chuck Bridgham">cbridgha</who>
+    <bug_when>2005-03-02 10:02:02 -0500</bug_when>
+    <thetext>OK</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

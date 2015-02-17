@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>306613</bug_id>
+          
+          <creation_ts>2010-03-20 18:45:00 -0400</creation_ts>
+          <short_desc>Ide will not start</short_desc>
+          <delta_ts>2010-03-29 15:28:21 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>3.5.1</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Linux</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>critical</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Morten Slott Hansen">slott.hansen</reporter>
+          <assigned_to name="Platform-UI-Inbox">Platform-UI-Inbox</assigned_to>
+          <cc>remysuen</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>1698231</commentid>
+    <comment_count>0</comment_count>
+    <who name="Morten Slott Hansen">slott.hansen</who>
+    <bug_when>2010-03-20 18:45:16 -0400</bug_when>
+    <thetext>Build Identifier: 3.5.1-22.fc12
+
+Let me start by saying that I'm not sure if this is a Fedora problem or Eclipse problem.
+
+For some reason Eclipse will no longer start and I keep getting this really bad error log. I tried to uninstall Eclipse and manually remove _everything_ such as .eclipse etc. etc.
+
+Then after a clean install &quot;yum groupinstall eclipse&quot; I still get the same damn error ;(
+
+...
+java.lang.RuntimeException: Application &quot;org.eclipse.ui.ide.workbench&quot; could not be found in the registry.
+...
+
+I'm on Fedora 12 - which I have been rock solid with Eclipse until this weekend!
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.Clean install of Eclipse using &quot;yum groupinstall eclipse&quot;
+2.Start eclipse from command line &quot;eclipse&quot;
+3.Error is dumped to log file</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1698251</commentid>
+    <comment_count>1</comment_count>
+    <who name="Remy Suen">remysuen</who>
+    <bug_when>2010-03-20 22:10:02 -0400</bug_when>
+    <thetext>Please download Eclipse from eclipse.org and try again. The Eclipse release engineering team does not produce rpms/debs.
+http://download.eclipse.org/eclipse/downloads/drops/R-3.5.2-201002111343/index.php</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1698343</commentid>
+    <comment_count>2</comment_count>
+      <attachid>162617</attachid>
+    <who name="Morten Slott Hansen">slott.hansen</who>
+    <bug_when>2010-03-21 16:31:22 -0400</bug_when>
+    <thetext>Created attachment 162617
+Error log from Eclipse 3.5.2</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1698344</commentid>
+    <comment_count>3</comment_count>
+    <who name="Morten Slott Hansen">slott.hansen</who>
+    <bug_when>2010-03-21 16:32:55 -0400</bug_when>
+    <thetext>Thanx for speedy reply - now I am getting somewhere :)
+This time I actually get an error which I could track down and fix. Not sure if this was a bug in Eclipse or the good people at Fedora broke something that killed the bug reporting feature...
+
+See attachment if U like - otherwise close this bug.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1702165</commentid>
+    <comment_count>4</comment_count>
+    <who name="Eric Moffatt">emoffatt</who>
+    <bug_when>2010-03-29 15:28:21 -0400</bug_when>
+    <thetext>
+kk, glad you're back up !</thetext>
+  </long_desc>
+      
+          <attachment isobsolete="0" ispatch="0" isprivate="0">
+            <attachid>162617</attachid>
+            <date>2010-03-21 16:31:00 -0400</date>
+            <delta_ts>2010-03-21 16:31:22 -0400</delta_ts>
+            <desc>Error log from Eclipse 3.5.2</desc>
+            <filename>.log</filename>
+            <type>text/plain</type>
+            <size>3740</size>
+            <attacher name="Morten Slott Hansen">slott.hansen</attacher>
+            
+              <data encoding="base64">IVNFU1NJT04gMjAxMC0wMy0yMSAyMToxNjo0OS44MDQgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KZWNsaXBzZS5idWlsZElkPU0yMDEwMDIxMS0xMzQzCmph
+dmEudmVyc2lvbj0xLjYuMF8xNwpqYXZhLnZlbmRvcj1TdW4gTWljcm9zeXN0ZW1zIEluYy4KQm9v
+dExvYWRlciBjb25zdGFudHM6IE9TPWxpbnV4LCBBUkNIPXg4Nl82NCwgV1M9Z3RrLCBOTD1lbl9V
+UwpDb21tYW5kLWxpbmUgYXJndW1lbnRzOiAgLW9zIGxpbnV4IC13cyBndGsgLWFyY2ggeDg2XzY0
+CgohRU5UUlkgb3JnLmVjbGlwc2UuZXF1aW5veC5wMi5yZXBvc2l0b3J5IDIgMCAyMDEwLTAzLTIx
+IDIxOjIzOjEzLjU5NgohTUVTU0FHRSBDb25uZWN0aW9uIHRvIGh0dHA6Ly9lY2xpcHNlLmlhbHRv
+Lm9yZy9yZWxlYXNlcy9nYWxpbGVvLzIwMDkwOTI0MTE0MC9hZ2dyZWdhdGUvcGx1Z2lucy9vcmcu
+ZWNsaXBzZS5lbWYuY29tbW9uXzIuNS4wLnYyMDA5MDYxNTEwNDMuamFyLnBhY2suZ3ogZmFpbGVk
+IG9uIFVuYWJsZSB0byBwYXJzZSBoZWFkZXI6IDwvYT48L2Rpdj4uIFJldHJ5IGF0dGVtcHQgMCBz
+dGFydGVkCiFTVEFDSyAwCm9yZy5hcGFjaGUuY29tbW9ucy5odHRwY2xpZW50LlByb3RvY29sRXhj
+ZXB0aW9uOiBVbmFibGUgdG8gcGFyc2UgaGVhZGVyOiA8L2E+PC9kaXY+CglhdCBvcmcuYXBhY2hl
+LmNvbW1vbnMuaHR0cGNsaWVudC5IdHRwUGFyc2VyLnBhcnNlSGVhZGVycyhIdHRwUGFyc2VyLmph
+dmE6MjAyKQoJYXQgb3JnLmFwYWNoZS5jb21tb25zLmh0dHBjbGllbnQuSHR0cE1ldGhvZEJhc2Uu
+cmVhZFJlc3BvbnNlSGVhZGVycyhIdHRwTWV0aG9kQmFzZS5qYXZhOjE5MzUpCglhdCBvcmcuYXBh
+Y2hlLmNvbW1vbnMuaHR0cGNsaWVudC5IdHRwTWV0aG9kQmFzZS5yZWFkUmVzcG9uc2UoSHR0cE1l
+dGhvZEJhc2UuamF2YToxNzM3KQoJYXQgb3JnLmFwYWNoZS5jb21tb25zLmh0dHBjbGllbnQuSHR0
+cE1ldGhvZEJhc2UuZXhlY3V0ZShIdHRwTWV0aG9kQmFzZS5qYXZhOjEwOTgpCglhdCBvcmcuZWNs
+aXBzZS5lY2YucHJvdmlkZXIuZmlsZXRyYW5zZmVyLmh0dHBjbGllbnQuSHR0cENsaWVudFJldHJp
+ZXZlRmlsZVRyYW5zZmVyJEd6aXBHZXRNZXRob2QuZXhlY3V0ZShIdHRwQ2xpZW50UmV0cmlldmVG
+aWxlVHJhbnNmZXIuamF2YToxMTMpCglhdCBvcmcuYXBhY2hlLmNvbW1vbnMuaHR0cGNsaWVudC5I
+dHRwTWV0aG9kRGlyZWN0b3IuZXhlY3V0ZVdpdGhSZXRyeShIdHRwTWV0aG9kRGlyZWN0b3IuamF2
+YTozOTgpCglhdCBvcmcuYXBhY2hlLmNvbW1vbnMuaHR0cGNsaWVudC5IdHRwTWV0aG9kRGlyZWN0
+b3IuZXhlY3V0ZU1ldGhvZChIdHRwTWV0aG9kRGlyZWN0b3IuamF2YToxNzEpCglhdCBvcmcuYXBh
+Y2hlLmNvbW1vbnMuaHR0cGNsaWVudC5IdHRwQ2xpZW50LmV4ZWN1dGVNZXRob2QoSHR0cENsaWVu
+dC5qYXZhOjM5NykKCWF0IG9yZy5hcGFjaGUuY29tbW9ucy5odHRwY2xpZW50Lkh0dHBDbGllbnQu
+ZXhlY3V0ZU1ldGhvZChIdHRwQ2xpZW50LmphdmE6MzQ2KQoJYXQgb3JnLmVjbGlwc2UuZWNmLnBy
+b3ZpZGVyLmZpbGV0cmFuc2Zlci5odHRwY2xpZW50Lkh0dHBDbGllbnRSZXRyaWV2ZUZpbGVUcmFu
+c2Zlci5wZXJmb3JtQ29ubmVjdChIdHRwQ2xpZW50UmV0cmlldmVGaWxlVHJhbnNmZXIuamF2YTox
+MDE3KQoJYXQgb3JnLmVjbGlwc2UuZWNmLnByb3ZpZGVyLmZpbGV0cmFuc2Zlci5odHRwY2xpZW50
+Lkh0dHBDbGllbnRSZXRyaWV2ZUZpbGVUcmFuc2Zlci5vcGVuU3RyZWFtcyhIdHRwQ2xpZW50UmV0
+cmlldmVGaWxlVHJhbnNmZXIuamF2YTo2MTApCglhdCBvcmcuZWNsaXBzZS5lY2YucHJvdmlkZXIu
+ZmlsZXRyYW5zZmVyLnJldHJpZXZlLkFic3RyYWN0UmV0cmlldmVGaWxlVHJhbnNmZXIuc2VuZFJl
+dHJpZXZlUmVxdWVzdChBYnN0cmFjdFJldHJpZXZlRmlsZVRyYW5zZmVyLmphdmE6ODA4KQoJYXQg
+b3JnLmVjbGlwc2UuZWNmLnByb3ZpZGVyLmZpbGV0cmFuc2Zlci5yZXRyaWV2ZS5BYnN0cmFjdFJl
+dHJpZXZlRmlsZVRyYW5zZmVyLnNlbmRSZXRyaWV2ZVJlcXVlc3QoQWJzdHJhY3RSZXRyaWV2ZUZp
+bGVUcmFuc2Zlci5qYXZhOjUwNikKCWF0IG9yZy5lY2xpcHNlLmVjZi5wcm92aWRlci5maWxldHJh
+bnNmZXIucmV0cmlldmUuTXVsdGlQcm90b2NvbFJldHJpZXZlQWRhcHRlci5zZW5kUmV0cmlldmVS
+ZXF1ZXN0KE11bHRpUHJvdG9jb2xSZXRyaWV2ZUFkYXB0ZXIuamF2YTo5OCkKCWF0IG9yZy5lY2xp
+cHNlLmVxdWlub3guaW50ZXJuYWwucDIucmVwb3NpdG9yeS5GaWxlUmVhZGVyLnNlbmRSZXRyaWV2
+ZVJlcXVlc3QoRmlsZVJlYWRlci5qYXZhOjMxNykKCWF0IG9yZy5lY2xpcHNlLmVxdWlub3guaW50
+ZXJuYWwucDIucmVwb3NpdG9yeS5GaWxlUmVhZGVyLnJlYWRJbnRvKEZpbGVSZWFkZXIuamF2YToy
+NjMpCglhdCBvcmcuZWNsaXBzZS5lcXVpbm94LmludGVybmFsLnAyLnJlcG9zaXRvcnkuUmVwb3Np
+dG9yeVRyYW5zcG9ydC5kb3dubG9hZChSZXBvc2l0b3J5VHJhbnNwb3J0LmphdmE6NzEpCglhdCBv
+cmcuZWNsaXBzZS5lcXVpbm94LmludGVybmFsLnAyLnJlcG9zaXRvcnkuUmVwb3NpdG9yeVRyYW5z
+cG9ydC5kb3dubG9hZChSZXBvc2l0b3J5VHJhbnNwb3J0LmphdmE6MTI3KQoJYXQgb3JnLmVjbGlw
+c2UuZXF1aW5veC5pbnRlcm5hbC5wMi5hcnRpZmFjdC5yZXBvc2l0b3J5LnNpbXBsZS5TaW1wbGVB
+cnRpZmFjdFJlcG9zaXRvcnkuZG93bmxvYWRBcnRpZmFjdChTaW1wbGVBcnRpZmFjdFJlcG9zaXRv
+cnkuamF2YTo0NjgpCglhdCBvcmcuZWNsaXBzZS5lcXVpbm94LmludGVybmFsLnAyLmFydGlmYWN0
+LnJlcG9zaXRvcnkuc2ltcGxlLlNpbXBsZUFydGlmYWN0UmVwb3NpdG9yeS5kb3dubG9hZEFydGlm
+YWN0KFNpbXBsZUFydGlmYWN0UmVwb3NpdG9yeS5qYXZhOjQ1MSkKCWF0IG9yZy5lY2xpcHNlLmVx
+dWlub3guaW50ZXJuYWwucDIuYXJ0aWZhY3QucmVwb3NpdG9yeS5zaW1wbGUuU2ltcGxlQXJ0aWZh
+Y3RSZXBvc2l0b3J5LmdldEFydGlmYWN0KFNpbXBsZUFydGlmYWN0UmVwb3NpdG9yeS5qYXZhOjUx
+OCkKCWF0IG9yZy5lY2xpcHNlLmVxdWlub3guaW50ZXJuYWwucDIuYXJ0aWZhY3QucmVwb3NpdG9y
+eS5NaXJyb3JSZXF1ZXN0LmdldEFydGlmYWN0KE1pcnJvclJlcXVlc3QuamF2YToyMDApCglhdCBv
+cmcuZWNsaXBzZS5lcXVpbm94LmludGVybmFsLnAyLmFydGlmYWN0LnJlcG9zaXRvcnkuTWlycm9y
+UmVxdWVzdC50cmFuc2ZlclNpbmdsZShNaXJyb3JSZXF1ZXN0LmphdmE6MTc1KQoJYXQgb3JnLmVj
+bGlwc2UuZXF1aW5veC5pbnRlcm5hbC5wMi5hcnRpZmFjdC5yZXBvc2l0b3J5Lk1pcnJvclJlcXVl
+c3QudHJhbnNmZXIoTWlycm9yUmVxdWVzdC5qYXZhOjE1OSkKCWF0IG9yZy5lY2xpcHNlLmVxdWlu
+b3guaW50ZXJuYWwucDIuYXJ0aWZhY3QucmVwb3NpdG9yeS5NaXJyb3JSZXF1ZXN0LnBlcmZvcm0o
+TWlycm9yUmVxdWVzdC5qYXZhOjk1KQoJYXQgb3JnLmVjbGlwc2UuZXF1aW5veC5pbnRlcm5hbC5w
+Mi5hcnRpZmFjdC5yZXBvc2l0b3J5LnNpbXBsZS5TaW1wbGVBcnRpZmFjdFJlcG9zaXRvcnkuZ2V0
+QXJ0aWZhY3QoU2ltcGxlQXJ0aWZhY3RSZXBvc2l0b3J5LmphdmE6NTA3KQoJYXQgb3JnLmVjbGlw
+c2UuZXF1aW5veC5pbnRlcm5hbC5wMi5hcnRpZmFjdC5yZXBvc2l0b3J5LnNpbXBsZS5Eb3dubG9h
+ZEpvYi5ydW4oRG93bmxvYWRKb2IuamF2YTo2NCkKCWF0IG9yZy5lY2xpcHNlLmNvcmUuaW50ZXJu
+YWwuam9icy5Xb3JrZXIucnVuKFdvcmtlci5qYXZhOjU1KQo=
+</data>
+
+          </attachment>
+      
+
+    </bug>
+
+</bugzilla>

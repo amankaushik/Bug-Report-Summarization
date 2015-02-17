@@ -1,0 +1,5 @@
+Build Identifier: 3.5.1-22.fc12
+
+Let me start by saying that I'm not sure if this is a Fedora problem or Eclipse problem.
+For some reason Eclipse will no longer start and I keep getting this really bad error log.
+I tried to uninstall Eclipse and manually remove _everything_ such as .eclipse etc.

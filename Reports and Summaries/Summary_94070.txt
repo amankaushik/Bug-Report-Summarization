@@ -1,0 +1,2 @@
+fyi: I don't believe this message has changed since 1.0 and should be the same
+translation as previous releases.Thank you for the info.

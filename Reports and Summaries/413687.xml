@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>413687</bug_id>
+          
+          <creation_ts>2013-07-24 18:48:00 -0400</creation_ts>
+          <short_desc>Re-indexing repository automatically starts, never ends, consumes 100% CPU and then fails</short_desc>
+          <delta_ts>2013-07-24 19:25:04 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>4.4</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Linux</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>blocker</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Stuart Horsman">stuart.horsman</reporter>
+          <assigned_to name="Platform-UI-Inbox">Platform-UI-Inbox</assigned_to>
+          
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>2288105</commentid>
+    <comment_count>0</comment_count>
+    <who name="Stuart Horsman">stuart.horsman</who>
+    <bug_when>2013-07-24 18:48:01 -0400</bug_when>
+    <thetext>Eclipse noob here.  I installed the lastest version of Eclipse Kepler, build 20130614-0229.  On startup a process launches that states:
+
+'Re-indexing (fully) repository stuart'
+
+the process spins to 100% CPU, never ends and eventually fails.  I've tried increasing my memory params:
+
+-XX:PermSize=128m
+-XX:MaxPermSize=256m
+-Xms512m
+-Xmx1024m
+
+and also disable Git automatic refresh:
+
+Preferences -&gt; Team -&gt; Git deselect the 2 Automatic Refresh options.
+
+Eclipse is currently unusable for me.  How can I help debug this?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>2288109</commentid>
+    <comment_count>1</comment_count>
+    <who name="Stuart Horsman">stuart.horsman</who>
+    <bug_when>2013-07-24 19:03:49 -0400</bug_when>
+    <thetext>So there's a couple of errors in the log file.
+
+1) !MESSAGE An internal error occurred during: &quot;Re-indexing (fully) repository stuart&quot;.
+!STACK 0
+java.lang.IllegalArgumentException: file /home/stuart/.cxoffice/IE6/dosdevices/z
+:/proc/1783/root/proc/1783/root/proc/11006/root/lib/modules/3.2.0-48-generic/bui
+ld/include/config/iso9660 is no directory
+
+so it's complaining about crossover office.  Why does eclipse care about files in .cxoffice?
+
+2) !MESSAGE An internal error occurred during: &quot;Re-indexing (fully) repository stuart&quot;.
+!STACK 0
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+
+And out of memory (my laptop has 8gb of RAM).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>2288114</commentid>
+    <comment_count>2</comment_count>
+    <who name="Stuart Horsman">stuart.horsman</who>
+    <bug_when>2013-07-24 19:25:04 -0400</bug_when>
+    <thetext>ok my fault.  I had a git repo in my home directory.
+
+Fixed by removing the git repo (rm -rf ~/.git)</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

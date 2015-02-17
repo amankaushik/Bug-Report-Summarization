@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>55585</bug_id>
+          
+          <creation_ts>2004-03-22 15:39:00 -0500</creation_ts>
+          <short_desc>Project Description should allow silent setting of invalid Project Nature</short_desc>
+          <delta_ts>2005-03-02 09:50:20 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows 2000</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.0 RC3</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Michael D. Elder">mdelder</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          <cc>dj_houghton</cc>
+    
+    <cc>john_arthorne</cc>
+    
+    <cc>schacher</cc>
+    
+    <cc>vbhadrir</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>243859</commentid>
+    <comment_count>0</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-03-22 15:39:49 -0500</bug_when>
+    <thetext>We have built a generic migration engine to ensure N-1 | N-2 compatibility with
+previous versions of our product which is built on Eclipse. To enable the
+seamless migration, we sometimes have to add natures and/or builders which are
+not actually valid in the current version (for backward compatibility, we add
+natures so that previous versions of the product will recognize them
+appropriately). When doing so we are seeing exceptions. Is there a way to set
+the nature and explicitly silence the error? If not, we need this capability for
+the final release of Eclipse 3.0.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>243969</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-03-22 17:43:19 -0500</bug_when>
+    <thetext>You see exceptions in the new version of the product or the old one?  What kinds
+of exceptions are you seeing?  The only thing that should happen when a builder
+is missing is an informational message in the log file once per session
+mentioned that a missing builder was encountered and skipped.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>246975</commentid>
+    <comment_count>2</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-03-25 13:48:08 -0500</bug_when>
+    <thetext>Closing - not enough info.  Please reopen with more details.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>247011</commentid>
+    <comment_count>3</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-03-25 14:07:35 -0500</bug_when>
+    <thetext>We are using a 3.0 Integration Build from early March (03/04). 
+
+We get the following exception when setting the Project Description using a
+nature ID that does not have a valid nature defined. 
+
+The problem occurs in
+org.eclipse.core.internal.resources.NatureManager.java#483-496 (below) where the
+id given comes back with a null IProjectNatureDescriptor, and therefore trips
+the failure. 
+
+IProjectNatureDescriptor desc = getNatureDescriptor(id);
+if (desc == null) {
+   return failure(Policy.bind(&quot;natures.missingNature&quot;, id)); //$NON-NLS-1$
+}
+
+
+The actual exception is a CoreException:
+
+*** ERROR ***: Thu Mar 25 13:55:39 EST 2004   
+org.eclipse.core.runtime.CoreException: Problems encountered while setting
+project description.
+    	at org.eclipse.core.internal.resources.Project.setDescription(Project.java:823)
+    	at org.eclipse.core.internal.resources.Project.setDescription(Project.java:847)
+    	at
+com.ibm.wtp.migration.TacitMigrationEngine.migrateAllMappings(TacitMigrationEngine.java:181)
+    	at
+com.ibm.wtp.migration.TacitMigrationOperation.execute(TacitMigrationOperation.java:54)
+    	at com.ibm.wtp.common.operation.WTPOperation.doRun(WTPOperation.java:209)
+    	at com.ibm.wtp.common.operation.WTPOperation$1.run(WTPOperation.java:156)
+    	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1567)
+    	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1586)
+    	at com.ibm.wtp.common.operation.WTPOperation.run(WTPOperation.java:172)
+    	at
+com.ibm.wtp.common.operation.WTPOperationJobAdapter.run(WTPOperationJobAdapter.java:37)
+    	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+
+Setting invalid builders only gives an informational message to the log. It
+would be great if we had some way to indicate &quot;Ignore Bad Natures&quot; and/or
+&quot;Ignore Bad Builders&quot; so that we could even surpress the bad natures and
+builders warning message.
+
+
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>247048</commentid>
+    <comment_count>4</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-03-25 14:27:03 -0500</bug_when>
+    <thetext>Ok, I understand.  We tolerate the presence of non-existent natures, but we
+don't allow you to configure new natures that are missing (our contract requires
+us to invoke IProjectNature.configure(), which we cannot do if the nature is
+missing). I assume you can't define that nature because the plug-in that defined
+it no longer exists?
+
+The one thing you could do right now is modify the .project file directly.  That
+would modify the description without causing nature configuration, which will
+work without any errors. Let me think about this further...</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>267449</commentid>
+    <comment_count>5</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-04-28 11:25:32 -0400</bug_when>
+    <thetext>We would like resolution on this defect as soon as possible. What is the current
+status?
+
+Thank you for your time.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>272533</commentid>
+    <comment_count>6</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-05-05 16:40:16 -0400</bug_when>
+    <thetext>Better late than never...
+
+I have added a new update flag, IResource.AVOID_NATURE_CONFIG. When you pass
+this flag to IProject.setDescription, it will not cause natures to be configured
+or deconfigured. I expect you will need to call setDescription twice, once with
+the new, valid natures, and a second time with AVOID_NATURE_CONFIG to add the
+old backwards-compability natures.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>308993</commentid>
+    <comment_count>7</comment_count>
+    <who name="Neeraj Agrawal">nagrawal</who>
+    <bug_when>2004-06-17 16:06:28 -0400</bug_when>
+    <thetext>Doesn't  add the  old nature,  see  following  code snippet 
+
+String[] allNatures = new String[prevNatures.length + 1];
+System.arraycopy(prevNatures, 0, allNatures, 1, prevNatures.length);
+allNatures[0] = oldNatureId;
+description.setNatureIds(allNatures);
+proj.setDescription( description, IResource.AVOID_NATURE_CONFIG, null );</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309023</commentid>
+    <comment_count>8</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-06-17 16:28:06 -0400</bug_when>
+    <thetext>We found that the call to Project.basicSetDescription() completely avoids the
+call to workspace.getNatureManager().configureNatures(this, current,
+description, result); when we use the new flag (as it should). However, it is in
+that method that the natures from the new Description object are transferred
+into the current description object. Since the call to configure natures is
+never made, the new nature settings are not committed. 
+
+We belive the fix should be something like the following: 
+// in org.eclipse.core.internal.resources.Project
+protected MultiStatus basicSetDescription(ProjectDescription description, int
+updateFlags) {
+
+...
+  if ((updateFlags &amp; IResource.AVOID_NATURE_CONFIG) == 0)
+    workspace.getNatureManager().configureNatures(this, current, description,
+result);
+  else 
+    current.setNatureIds(description.getNatureIds(true));
+
+  return result;
+}
+
+This fix is rather important to our product, and we think it should be
+relatively minor. Please consider this when deciding whether to address this
+defect so late in the cycle. Thank you.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309037</commentid>
+    <comment_count>9</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-06-17 16:33:18 -0400</bug_when>
+    <thetext>Thank you for taking the time to test this new API when we released it six weeks ago
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309042</commentid>
+    <comment_count>10</comment_count>
+    <who name="Jim des Rivieres">jim_des_rivieres</who>
+    <bug_when>2004-06-17 16:37:09 -0400</bug_when>
+    <thetext>+1</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309043</commentid>
+    <comment_count>11</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2004-06-17 16:39:16 -0400</bug_when>
+    <thetext>+1 to fix for RC3.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309059</commentid>
+    <comment_count>12</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-06-17 16:47:58 -0400</bug_when>
+    <thetext>Fix released. NatureTest.testNatureLifecycle has been updated to check for
+successful nature installation.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>309225</commentid>
+    <comment_count>13</comment_count>
+    <who name="Michael D. Elder">mdelder</who>
+    <bug_when>2004-06-17 18:40:28 -0400</bug_when>
+    <thetext>Thank you for your speedy reply and reaction. We went ahead and pulled the
+org.eclipse.core.resources plugin out of the HEAD stream and tested your fix. It
+seems like everything is working now. 
+
+Apologies for any inconvenience. </thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>407670</commentid>
+    <comment_count>14</comment_count>
+    <who name="Chuck Bridgham">cbridgha</who>
+    <bug_when>2005-03-02 09:50:20 -0500</bug_when>
+    <thetext>Closed for Michael.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

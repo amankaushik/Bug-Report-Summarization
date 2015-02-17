@@ -1,0 +1,8 @@
+That was quick.
+Don't have a repro, but thought the stack trace may be enough to go on...
+
+[exec] java.lang.NullPointerException
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.computeNatureEnablements(NatureManager.java:50)
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.getEnabledNatures(NatureManager.java:332)
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.isNatureEnabled(NatureManager.java:433)
+     [exec]     at org.eclipse.core.internal.resources.Project.isNatureEnabled(Project.java:730)From inspecting the code, I see how this can happen if the project is deleted or closed concurrently in another thread.

@@ -1,0 +1,8 @@
+Consider for 3.2.
+At least ECLIPSE_HOME is set in the Java classpath in Preferences/Java/Build Path.Fixed in 3.6 by introducing Dynamic Path Variables.
+It would be useful to have predefined path variables like ECLIPSE_HOME, 
+WORKSPACE.
+External path variables are used when resources are linked into external file 
+system.Suggest we add an #initialize method that checks to see if the ECLIPSE_HOME and
+WORKSPACE values are currently in the store and if they aren't, then we add
+them.

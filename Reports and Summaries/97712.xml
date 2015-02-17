@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>97712</bug_id>
+          
+          <creation_ts>2005-05-31 16:25:00 -0400</creation_ts>
+          <short_desc>Creating a project  which  only has  periods  throws  exception</short_desc>
+          <delta_ts>2005-06-21 16:17:24 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.1</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>major</bug_severity>
+          <target_milestone>3.1 RC2</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Neeraj Agrawal">nagrawal</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          <cc>john_arthorne</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>466005</commentid>
+    <comment_count>0</comment_count>
+    <who name="Neeraj Agrawal">nagrawal</who>
+    <bug_when>2005-05-31 16:25:09 -0400</bug_when>
+    <thetext>Create a Java Project which only has periods and  they are more than  2 in 
+number
+
+
+
+org.eclipse.jdt.core.JavaModelException[272]: java.io.FileNotFoundException: 
+D:\EclipseWorkspace\...\.project (The filename, directory name, or volume label 
+syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapter.java:87)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:113)
+Caused by: org.eclipse.core.internal.resources.ResourceException
+(D:/EclipseWorkspace/.../.project)[272]: java.io.FileNotFoundException: 
+D:\EclipseWorkspace\...\.project (The filename, directory name, or volume label 
+syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapter.java:87)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:113)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2005-05-31 16:17:29.937
+!MESSAGE Could not write file: D:\EclipseWorkspace\...\.project.
+!STACK 0
+java.io.FileNotFoundException: D:\EclipseWorkspace\...\.project (The filename, 
+directory name, or volume label syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at java.io.FileOutputStream.&lt;init&gt;(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapter</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>466117</commentid>
+    <comment_count>1</comment_count>
+    <who name="Jerome Lanneluc">jerome_lanneluc</who>
+    <bug_when>2005-05-31 17:24:05 -0400</bug_when>
+    <thetext>Can be reproduced with a simple project.
+Moving to Platform Resources for comment.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>466191</commentid>
+    <comment_count>2</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2005-05-31 18:40:42 -0400</bug_when>
+    <thetext>Windows seems to treat filenames containing only dots in a special way.  I am
+unable to create such filenames from either a command prompt or Windows
+Explorer. I have not been able to find any documentation on MSDN on how or why
+these paths are treated specially.
+
+Is there a particular reason you marked this as &quot;major&quot; severity?  It seems we
+could never create resources with such a name, although we should be able to
+give better user guidance such as an error in the wizard (as we do with the
+special names &quot;.&quot; and &quot;..').</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>466625</commentid>
+    <comment_count>3</comment_count>
+    <who name="Neeraj Agrawal">nagrawal</who>
+    <bug_when>2005-06-01 09:48:11 -0400</bug_when>
+    <thetext>In the  previous versions of eclipse  any  project name  ending  with .  was 
+not allowed. I agree that better  error  handling should be  done, throwing
+exception doesn't convey right information to the user. 
+ Since  this is the base problem the  project  creation for other  &quot;projects&quot; 
+such as  WTP also fails, therefore i have markek it major.
+
+Please  see
+http://msdn.microsoft.com/library/default.asp?url=/library/en-
+us/fileio/fs/naming_a_file.asp
+
+it mentions that  trailing  space  or period not allowed
+
+
+Do not end a file or directory name with a trailing space or a period. 
+Although the underlying file system may support such names, the operating 
+system does not. 
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>466661</commentid>
+    <comment_count>4</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2005-06-01 10:05:36 -0400</bug_when>
+    <thetext>Thanks for the link, that's what I was looking for.
+
+DJ, this might be worth considering for RC2 as a low risk polish item.  Now that
+I have doc describing what is invalid, I can add these checks to the win32
+section of the OS class.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>466943</commentid>
+    <comment_count>5</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2005-06-01 12:18:13 -0400</bug_when>
+    <thetext>+1 for RC2</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>469735</commentid>
+    <comment_count>6</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2005-06-03 14:46:34 -0400</bug_when>
+    <thetext>Despite the Windows guidelines, I am seeing inconsitent behaviour for paths with
+trailing spaces and dots:
+
+1) Path with trailing space.  When the file or directory is created, the
+trailing space is silently dropped. This does not cause any problems in Eclipse.
+
+2) Path with trailing dot (such as &quot;a.&quot;).  Trailing dot is silently dropped.
+This causes problems in eclipse because the resource name in the memory model is
+still &quot;a.&quot;, but after the next refreshLocal everything is fine.  No errors occur
+at creation time.
+
+3) Path containing only dots (such as &quot;...&quot;).  This causes errors when the file
+is created.  If I try to create such a file or directory at the command prompt,
+it claims that the file already exists.
+
+I have released a fix that disallows all paths with a trailing dot on Windows
+only.  I have not disallowed trailing spaces for now because it is not causing
+any problems.  I have added regression tests to the various
+IWorkspaceTest.testValidate* methods and have run tests on Windows and Linux.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>487360</commentid>
+    <comment_count>7</comment_count>
+    <who name="Neeraj Agrawal">nagrawal</who>
+    <bug_when>2005-06-21 16:17:24 -0400</bug_when>
+    <thetext>Verifed in 3.1RC3</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

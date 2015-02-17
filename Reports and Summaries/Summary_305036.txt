@@ -1,0 +1,92 @@
+I open the following bug to track this issue:
+
+Bug 339859 - Infinite loop when copying files between projects using linked resources
+I'm attaching a patch illustrating what should be done in this area.Created attachment 161331
+Proposal v01Created attachment 161439
+Supplementary fix for UI and core.resourcesCreated attachment 161455
+Supplementary fix with Serge changesCreated attachment 161458
+Supplementary fix with Serge's changes v02Fixed in HEAD.This patch turned out to cause an infinite loop with the following stack trace:
+
+
+Thread [main] (Suspended)	
+	ProjectPathVariableManager.isDefined(String) line: 168	
+	PathVariableUtil.getUniqueVariableName(String, IResource) line: 36	
+	Workspace.copyVariable(IResource, IResource, String) line: 885	
+	Workspace.transferVariableDefinition(IResource, IResource, URI) line: 828	
+	Workspace.copyTree(IResource, IPath, int, int, boolean, boolean, boolean) line: 761	
+	Workspace.move(Resource, IPath, int, int, boolean) line: 1753	
+	ResourceTree.movedFile(IFile, IFile) line: 537	
+	ResourceTree.standardMoveFile(IFile, IFile, int, IProgressMonitor) line: 917	
+	File(Resource).unprotectedMove(ResourceTree, IResource, int, IProgressMonitor) line: 1967	
+	File(Resource).move(IPath, int, IProgressMonitor) line: 1597	
+	LinkedResourceWithPathVariableTest.testMoveFileToDifferentProject() line: 428	
+	NativeMethodAccessorImpl.invoke0(Method, Object, Object[]) line: not available [native method]	
+	NativeMethodAccessorImpl.invoke(Object, Object[]) line: 39	
+	DelegatingMethodAccessorImpl.invoke(Object, Object[]) line: 25	
+	Method.invoke(Object, Object...) line: 597	
+	LinkedResourceWithPathVariableTest(TestCase).runTest() line: 168	
+	LinkedResourceWithPathVariableTest(TestCase).runBare() line: 134	
+	TestResult$1.protect() line: 110	
+	TestResult.runProtected(Test, Protectable) line: 128	
+	TestResult.run(TestCase) line: 113	
+	LinkedResourceWithPathVariableTest(TestCase).run(TestResult) line: 124	
+	TestSuite.runTest(Test, TestResult) line: 232	
+	TestSuite.run(TestResult) line: 227	
+	JUnit3TestReference.run(TestExecution) line: 130	
+	TestExecution.run(ITestReference[]) line: 38	
+	RemotePluginTestRunner(RemoteTestRunner).runTests(String[], String, TestExecution) line: 467	
+	RemotePluginTestRunner(RemoteTestRunner).runTests(TestExecution) line: 683	
+	RemotePluginTestRunner(RemoteTestRunner).run() line: 390	
+	RemotePluginTestRunner.main(String[]) line: 62	
+	UITestApplication$1.run() line: 116	
+	RunnableLock.run() line: 35	
+	UISynchronizer(Synchronizer).runAsyncMessages(boolean) line: 134	
+	Display.runAsyncMessages(boolean) line: 4041	
+	Display.readAndDispatch() line: 3660	
+	Workbench.runEventLoop(Window$IExceptionHandler, Display) line: 2640	
+	Workbench.runUI() line: 2604	
+	Workbench.access$4(Workbench) line: 2438	
+	Workbench$7.run() line: 671	
+	Realm.runWithDefault(Realm, Runnable) line: 332	
+	Workbench.createAndRunWorkbench(Display, WorkbenchAdvisor) line: 664	
+	PlatformUI.createAndRunWorkbench(Display, WorkbenchAdvisor) line: 149	
+	IDEApplication.start(IApplicationContext) line: 115	
+	UITestApplication.start(IApplicationContext) line: 47	
+	EclipseAppHandle.run(Object) line: 196	
+	EclipseAppLauncher.runApplication(Object) line: 110	
+	EclipseAppLauncher.start(Object) line: 79	
+	EclipseStarter.run(Object) line: 369	
+	EclipseStarter.run(String[], Runnable) line: 179	
+	NativeMethodAccessorImpl.invoke0(Method, Object, Object[]) line: not available [native method]	
+	NativeMethodAccessorImpl.invoke(Object, Object[]) line: 39	
+	DelegatingMethodAccessorImpl.invoke(Object, Object[]) line: 25	
+	Method.invoke(Object, Object...) line: 597	
+	Main.invokeFramework(String[], URL[]) line: 619	
+	Main.basicRun(String[]) line: 574	
+	Main.run(String[]) line: 1407	
+	Main.main(String[]) line: 1383This is because when copying resources, their variables will be copied too, and if one exists already in the destination project but with a different value, the code will try to find a new unique variable by appending an incremented suffix (VAR1, VAR2, etc...).
+The code in ProjectPathVariableManager.isDefined(String) from:
+
+	public boolean isDefined(String varName) {
+		for (int i = 0; i < variableProviders.length; i++) {
+			if (variableProviders[i].getName().equals(varName))
+				return true;
+		}
+
+To:
+
+	public boolean isDefined(String varName) {
+		for (int i = 0; i < variableProviders.length; i++) {
+			if (varName.startsWith(variableProviders[i].getName()))
+				return true;
+
+In the later case, when "VAR" already exist in the destination project, and we try to copy a linked resource starting with "VAR", the PVM will return that VAR, VAR1, VAR2, VAR3, etc... are all defined, hence the infinite loop.Created attachment 189787
+patch
+
+Patch to address the issue.
+The API should be revisited to avoid hard-coding the special case of the 'PARENT' variable.
+(In reply to comment #7)
+> In the later case, when "VAR" already exist in the destination project, and we
+> try to copy a linked resource starting with "VAR", the PVM will return that
+> VAR, VAR1, VAR2, VAR3, etc... are all defined, hence the infinite loop.
+Oh, also, this is true only when the variable VAR is provided by the variable resolvers extension mechanism, not entered by the user.Szymon, can you review it please?

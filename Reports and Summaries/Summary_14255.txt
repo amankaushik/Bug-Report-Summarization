@@ -1,0 +1,13 @@
+Please try on JDK 1.4.
+M5, WindowsXP Japanese
+
+STEPS
+1) create project with DBCS
+2) create and edit some files under the project
+3) right click at the project and select the "Add from Local History..."
+
+Problems
+- Upper left pane displays bogus for the DBCS project name
+- If I click and select the one in the Available files, nothing happnes in the 
+right upper pane and bottom pane.This case DBCS project name was
+\uff33\uff37\uff34\u30b5\u30f3\u30d7\u30eb in Unicode representationPlease investigate and make recommendations to Compare.

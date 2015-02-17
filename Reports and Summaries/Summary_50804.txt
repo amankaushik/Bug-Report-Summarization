@@ -1,0 +1,7 @@
+Preferences can be loaded without loading a plugin, as this is what
+Preferences.importPreferences/exportPreferences does.
+We have a situation where we would like access to the Preference Store in a way
+that does not require the loading or even the existence of a Plugin.
+Ideally,
+the functionality would be exposed in a way that we could (at least) look up
+existing preferences using a plugin-id and preference name.

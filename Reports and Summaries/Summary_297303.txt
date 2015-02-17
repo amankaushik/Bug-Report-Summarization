@@ -1,0 +1,17 @@
+ThanksThanks, Serge.This bug inadvertently disabled the property page for regular folders and containers.Never mind, something else caused this bug to fail in 3.7M6, I'll open another bug to track the failure case.
+I20091207-1800
+
+Resource filters cannot be edited for linked packages (properties page shows only up for folder, not for packages).This is a problem with adapters not being registered/implemented for the same types (IResource/IContainer/IFolder/...).
+Need to look at this in RC1 and fix together with Platform UI.OK, multiple problems:
+
+1. org.eclipse.ui.ide/plugin.xml contributes propertyPage "org.eclipse.ui.propertypages.resource.filters" with:
+         <enabledWhen>
+            <or>
+            	<adapt type="org.eclipse.core.resources.IProject"/>
+            	<adapt type="org.eclipse.core.resources.IFolder"/>
+            </or>
+         </enabledWhen>
+
+2. org.eclipse.jdt.ui's JavaElementAdapterFactory only contributes an adapter from IJavaElement to IResource, but not to IFolder nor to IContainer (the project case is handled with a separate adapter from IJavaProject to IProject).
+The ResourceFilterPage class gets an adapter to IContainer.class, and not to IFolder.class as would be expected from the enablement expression.Solving 2.
+(i.e.

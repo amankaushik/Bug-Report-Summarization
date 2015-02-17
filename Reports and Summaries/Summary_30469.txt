@@ -1,0 +1,7 @@
+Input DBCS file name without extention (XXXX (X=DBCS character))
+        5.
+There is no core dump and any descriprion in
+.log file.
+(RH8.0 Japanese locale)
+When I created XXXX.txt(X=DBCS character), the hang did not occur.Created attachment 3206
+the error dialog.I've not seen this on gtk2.2This does not happen with v2.1.Closing

@@ -1,0 +1,32 @@
+Open the created class with Java editor and add a main function, save the file.
+Please verify in the latest I-build which you can get from here:
+http://fullmoon.ottawa.ibm.com/eclipse/downloads/Verified on build N20070413-0010, this problem still can recreated.
+The problem is that we get a FileRevisionEditorInput with an encoded storage that returns 'null' for getCharset(), hence we're lost.
+Here's a test case without the outline:
+1. set workspace encoding to 'US-ASCII'
+2. create a simple project 'P'
+3. create a file 'f.txt'
+4. add '&#27979;&#35797;' and save
+5. add some more text and save
+6. open the local history
+7. open the first revision
+==> text is scrambled because the encoding is nullThe problem is that IFileState (local history entry) does not return the charset of the file it is associated with even though it implements IEncodedStorage.
+John, what are you're thoughts on this?
+Should the fix for this be put in IFileState or should clients be responsible for wrapping the storage to provide the encoding of the file?Moving to Resources to assess the complexity of returning the charset for the local file from the getCharset() of the file state.Created attachment 64453
+Potential fix
+
+From looking at the code, I've come up with a potential fix.
+However, I haven't been able to reproduce the problem with either the original steps or Dani's steps.
+OS: Windows Vista
+Language: Simplified Chinese
+Build Name: IES 3.3M5 
+JDK version: J2RE 1.5.0 IBM J9 2.3 Windows Vista x86-32 j9vmwi3223-20070318(JIT Enabled)
+
+Summary: DBCS chars displayed as garbage in Outline view.
+Steps to recreate problem:
+1.
+Launch IES3.3 Workbench, set Text File encoding to UTF-8 by clicking Window ->Preferences ->General ->Workspace.
+2.
+Create a Java Project named myProject.
+3.
+Create a Class named with DBCS chars like [unicode 6d4b,8bd5].

@@ -1,0 +1,18 @@
+OS:		windows 2003 
+Language:	Japanese
+Build level: 	I20040413
+JDK version:  IBM JDK 1.4.2 Beta
+Test case #:          
+
+Summary: DBCS/GB18030/BIDI/THAI/INDIAN:<Topic>
+
+Steps to recreate problem:
+1-Search > File, enter anyword to search
+2-
+3-
+
+Error:  Errors Runnning Jobs dialog pop up.
+"Problems encountered during text 
+searc"
+Expected Result
+no error.

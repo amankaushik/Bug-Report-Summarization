@@ -1,0 +1,7 @@
+On startup a process launches that states:
+
+'Re-indexing (fully) repository stuart'
+
+the process spins to 100% CPU, never ends and eventually fails.
+Eclipse noob here.
+I installed the lastest version of Eclipse Kepler, build 20130614-0229.

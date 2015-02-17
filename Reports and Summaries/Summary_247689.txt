@@ -1,0 +1,19 @@
+As part of our build process (that is, an actual Eclipse build job), we sometimes programmatically create new projects and update their descriptions (e.g.
+Unfortunately, this causes the cache in ContentDescriptionManager to be invalidated.
+And since the FlushJob must run with the workspace rule, the cache is invalid for the remainder of the build job.
+Perhaps the caching mechanism can be enhanced to still provide some cache capability even if a FlushJob is waiting to run.
+In this case, the resource properties would not be used, but the in-memory cache could still function.
+Since I am not really familiar with all this, however, this approach might not be feasible.
+The main underlying performance issue with calling readDescription so often happens to be (for our specific workloads) the fact that the XMLRootHandler creates a new SAXParser for every description read.
+If a shared parser, or even a parser pool could be implemented here, it would mitigate the cache failure in ContentDescriptionManager somewhat.A trace shows that ContentDescriptionManager.getDescriptionFor(..) accounts for over 25% of processing time during a first build cycle for a moderately-sized workload.
+This is mostly due to repeated calls to get the description of files (since the cache is invalid), with over 7% alone is spent in XMLRootHandler.createParser.
+Created attachment 112913
+PoC patch
+
+Using the attached Proof-of-Concept patch, I measure about a 16% improvement in my first build, with the processing time attributed to ContentDescriptionManager.getDescriptionFor(..) reduced by 48%.
+All the patch does is to use the cache for everything instead of resource info attributes while in between the invalidateCache call and when the FlushJob runs.We consider a 16% improvement significant, therefore, changing to normal severity.
+With the patch the regression resource test for bug 93473 fails.Hence, why the patch is a proof-of-concept and not 'proposed'.
+:-) Where can I find the regression tests?
+One comment is that when resourcesInSyncWithCache=false, you add to cache all content types even the default ones.
+Those entries have to be removed when the cache is in the valid state again.I believe that the flag 'resourcesInSyncWithCache' is only set to true right after the cache has been emptied, so I think your concern is covered.
+Szymon to follow on this.Patch looks like it's adding caching, which sounds like it provides a good speed improvement.

@@ -1,0 +1,79 @@
+Build Identifier: M20060921-0945
+
+Trying to move a project using the eclipse IDE, from its original location to a subdirectory of that location, will delete it instead!
+Select a project from the workspace
+2.
+Press OK and your entire project will be deleted!If I counted right, you are on 3.2.1, which is pretty ancient.
+Also, you did not specify if you are using the Project Explorer or Package Explorer (they go to different departments around here).I tried this on Windows 7 with an e4 I20100319-2100 build.
+!SUBENTRY 2 org.eclipse.core.resources 1 4 2010-03-25 21:03:18.368
+!MESSAGE Resource already exists on disk: 'D:\eclipse-e4-SDK-incubation-I20100319-2100-win32\ws\test'.Resources, please take a look.Created attachment 180402
+Changes "move" opperation on FileStoreCreated attachment 180403
+Validation fixI've investigated this bug and it's caused by our implementation of "move" opperation on file store.
+I've attached a fix for this using the temporary folder while moving, however I relize that this is a big change in file handling and you may hasitate to commit it.
+I think that the first intention was to prevent user from moving the project into it's own directory.
+I tried to move back in the file history to find out why default locations are not validated but it seems that it has been introduced in the initial version of the validator.
+The second fix I submitted changes the validator so that it verifies all projects, including those located in default locations.
+(In reply to comment #7)
+> I think that the first intention was to prevent user from moving the project
+> into it's own directory.
+Right, the second proposal looks better.
+Just add some tests, please.Created attachment 180490
+Fixed validation and added jUnitCreated attachment 180497
+Fixed validation and added jUnit (refactored)I made some changes in the tests.
+***Hi, sorry for being so late with the follow-up, but this till fails with 3.7.0
+
+I can no longer reproduce from the GUI, because it prevents it, but at the API
+level the standardMove operation deletes everything.
+// Before
+		//		/Users/me/SW/junit-workspace//P
+		//		/Users/me/SW/junit-workspace//P/Project-1
+		//		/Users/me/SW/junit-workspace//P/Project-1/.classpath
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/branches
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/config
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/HEAD
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/hooks
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/index
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/logs
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/logs/refs
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/logs/refs/heads
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/objects
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/objects/b6
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/objects/b6/49a9bf89116c581f8329b8ec3c79a86a70be04
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/objects/info
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/objects/pack
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/refs
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/refs/heads
+		//		/Users/me/SW/junit-workspace//P/Project-1/.git/refs/tags
+		//		/Users/me/SW/junit-workspace//P/Project-1/.project
+		//		/Users/me/SW/junit-workspace//P/Project-1/bin
+		//		/Users/me/SW/junit-workspace//P/Project-1/file.txt
+After:
+		// With 3.7 and earlier
+		//		/Users/me/SW/junit-workspace//P
+		//		/Users/me/SW/junit-workspace//P/Project-1
+		//		/Users/me/SW/junit-workspace//P/Project-1/P2
+		//		/Users/me/SW/junit-workspace//P/Project-1/P2/.project
+		//		/Users/me/SW/junit-workspace//P/Project-1/P2/bin
+		//		/Users/me/SW/junit-workspace//P/Project-1/P2/bin/.project
+
+One thing about the test in the attachment: I don't see where it tests that it actually does what
+is tries to do.
+Not crashing is not the same as passing a test.The target milestone is confusing ... since the UI issue is fixed and only the API affected I'd suggest closing this and cloning a new bug for the API issue?Gosia, please comment.As i interpret the issue, it's not a UI issue.
+The user actually wants to do this, at least that is what I wanted to do in Bug 339814.Created attachment 202991
+Enhanced test
+
+Robin, I'm attaching patch that enhances the test with some checks ensuring if contents of project was not deleted.
+The previous test only checked if an attempt to move the project to its subfolder returns an error, because before that it didn't.
+Attached test passes in my workspace, so I suppose the test doesn't exactly reflect your scenario.
+And also could you attach the exact build id?See http://egit.eclipse.org/r/#change,2727 patch 12 
+
+http://egit.eclipse.org/r/#patch,sidebyside,2727,12,org.eclipse.egit.core.test/src/org/eclipse/egit/core/GitMoveDeleteHookTest.java
+
+The test method is testMoveProjectWithinGitRepoMoveFromLevelZeroDownOne
+
+Build id is Build id: I20110613-1736http://egit.eclipse.org/r/#change,2727 patch 14 does not evade the bug, but fails the tests instead.Created attachment 203583
+Enhanced test that fails
+
+Thank you for the code, Robin.
+The difference between the two tests is that in your test the project name has been change as well.

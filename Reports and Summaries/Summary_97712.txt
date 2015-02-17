@@ -1,0 +1,170 @@
+Create a Java Project which only has periods and  they are more than  2 in 
+number
+
+
+
+org.eclipse.jdt.core.JavaModelException[272]: java.io.FileNotFoundException: 
+D:\EclipseWorkspace\...\.project (The filename, directory name, or volume label 
+syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapter.java:87)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:113)
+Caused by: org.eclipse.core.internal.resources.ResourceException
+(D:/EclipseWorkspace/.../.project)[272]: java.io.FileNotFoundException: 
+D:\EclipseWorkspace\...\.project (The filename, directory name, or volume label 
+syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapter.java:87)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:113)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2005-05-31 16:17:29.937
+!MESSAGE Could not write file: D:\EclipseWorkspace\...\.project.
+It seems we
+could never create resources with such a name, although we should be able to
+give better user guidance such as an error in the wizard (as we do with the
+special names ".
+!STACK 0
+java.io.FileNotFoundException: D:\EclipseWorkspace\...\.project (The filename, 
+directory name, or volume label syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at java.io.FileOutputStream.<init>(Unknown Source)
+	at org.eclipse.core.internal.localstore.FileSystemStore.createStream
+(FileSystemStore.java:105)
+	at org.eclipse.core.internal.localstore.FileSystemStore.write
+(FileSystemStore.java:386)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.write
+(FileSystemResourceManager.java:784)
+	at org.eclipse.core.internal.resources.File.internalSetContents
+(File.java:326)
+	at org.eclipse.core.internal.resources.File.setContents(File.java:370)
+	at 
+org.eclipse.core.internal.localstore.FileSystemResourceManager.internalWrite
+(FileSystemResourceManager.java:303)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1052)
+	at org.eclipse.core.internal.resources.Project.writeDescription
+(Project.java:1033)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:279)
+	at 
+org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathsBlock.createProject
+(BuildPathsBlock.java:635)
+	at 
+org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage.createProject
+(JavaCapabilityConfigurationPage.java:212)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.updateProject
+(JavaProjectWizardSecondPage.java:158)
+	at 
+org.eclipse.jdt.internal.ui.wizards.JavaProjectWizardSecondPage.performFinish
+(JavaProjectWizardSecondPage.java:302)
+	at org.eclipse.jdt.internal.ui.wizards.JavaProjectWizard.finishPage
+(JavaProjectWizard.java:61)
+	at org.eclipse.jdt.internal.ui.wizards.NewElementWizard$2.run
+(NewElementWizard.java:117)
+	at org.eclipse.jdt.internal.core.BatchOperation.executeOperation
+(BatchOperation.java:39)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run
+(JavaModelOperation.java:718)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1719)
+	at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3709)
+	at org.eclipse.jdt.internal.ui.actions.WorkbenchRunnableAdapter.run
+(WorkbenchRunnableAdapterCan be reproduced with a simple project.
+Moving to Platform Resources for comment.Windows seems to treat filenames containing only dots in a special way.
+I am
+unable to create such filenames from either a command prompt or Windows
+Explorer.
+I have not been able to find any documentation on MSDN on how or why
+these paths are treated specially.
+Is there a particular reason you marked this as "major" severity?
+" and "..').In the  previous versions of eclipse  any  project name  ending  with .
+was 
+not allowed.

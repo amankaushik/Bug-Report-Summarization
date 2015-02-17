@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>94070</bug_id>
+          
+          <creation_ts>2005-05-08 16:53:00 -0400</creation_ts>
+          <short_desc>3.1: tct 86-Clarification for translation</short_desc>
+          <delta_ts>2005-05-09 22:25:04 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.1</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.1 M7</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Cam-Thu Le">camle</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          <cc>phuff</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>445746</commentid>
+    <comment_count>0</comment_count>
+    <who name="Cam-Thu Le">camle</who>
+    <bug_when>2005-05-08 16:53:56 -0400</bug_when>
+    <thetext>File 
+\eclipse\plugins\org.eclipse.core.resources\resources_jar\org\eclipse\core\inte
+rnal\utils\messages.properties 
+
+Can you please explain &quot;touching&quot; in this context? Does it mean &quot;contacting&quot; 
+or &quot;modifying&quot;? 
+resources_touch = &lt;TWBQ&gt;Touching resource {0}</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>445870</commentid>
+    <comment_count>1</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2005-05-09 07:15:44 -0400</bug_when>
+    <thetext>Its a reference to an operating system function. To &quot;touch&quot; a file is to modify
+the timestamp of the file without modifying its contents.
+
+fyi: I don't believe this message has changed since 1.0 and should be the same
+translation as previous releases.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>446874</commentid>
+    <comment_count>2</comment_count>
+    <who name="Cam-Thu Le">camle</who>
+    <bug_when>2005-05-09 22:25:04 -0400</bug_when>
+    <thetext>Thank you for the info. Bug closed.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

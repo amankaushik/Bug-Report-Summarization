@@ -1,0 +1,10 @@
+I pointed my update manager at 
+
+http://eclipse.org/eclipse/development/performance
+
+but the tools were installed in the wrong location.
+They were installed one
+directory too deep.
+For example:
+
+U:\eclipse21\plugins\org.eclipse.core.tools_1.0.0\org.eclipse.core.tools_1.0.0Fixed.Cleaning up old defects.

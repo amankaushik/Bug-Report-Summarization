@@ -1,0 +1,11 @@
+Using Eclipse V1, create a Java project outside of the default workspace.
+Close the Java project, and exit Eclipse V1.
+Bring up Eclipse V2 (M4 driver or later), pointing to the workspace above.
+You 
+will see the closed Java project.
+Exit Eclipse V2.
+Upon exiting Eclipse V2, a directory with the same name as the project will be 
+created in the workspace (remember that the project's correct location is 
+outside of the default workspace).
+Within the directory is the .project file 
+for that project.

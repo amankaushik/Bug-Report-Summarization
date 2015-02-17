@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>58289</bug_id>
+          
+          <creation_ts>2004-04-13 10:43:00 -0400</creation_ts>
+          <short_desc>Need better message when progress monitor is blocked</short_desc>
+          <delta_ts>2005-05-10 14:55:53 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Tod Creasey">Tod_Creasey</reporter>
+          <assigned_to name="Tod Creasey">Tod_Creasey</assigned_to>
+          <cc>john_arthorne</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>257394</commentid>
+    <comment_count>0</comment_count>
+    <who name="Tod Creasey">Tod_Creasey</who>
+    <bug_when>2004-04-13 10:43:13 -0400</bug_when>
+    <thetext>We should add the following improvements to the ProgressMonitorJobsDialog
+
+1) Open progress viewer
+2) use a better icon
+3) Switch the name to Waiting rather ta\han blocked</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>258158</commentid>
+    <comment_count>1</comment_count>
+    <who name="Tod Creasey">Tod_Creasey</who>
+    <bug_when>2004-04-14 07:55:00 -0400</bug_when>
+    <thetext>The details pane now opens by default. Moving to John to look at the message</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>258387</commentid>
+    <comment_count>2</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2004-04-14 11:23:52 -0400</bug_when>
+    <thetext>I have updated the core message to say:
+
+&quot;Waiting for background work to complete.&quot;
+
+The dialog is still adding a prefix that says &quot;The user interface is blocked&quot;.
+This could probably be removed completely.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>258469</commentid>
+    <comment_count>3</comment_count>
+    <who name="Tod Creasey">Tod_Creasey</who>
+    <bug_when>2004-04-14 12:11:58 -0400</bug_when>
+    <thetext>Removed message</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>448053</commentid>
+    <comment_count>4</comment_count>
+    <who name="Tod Creasey">Tod_Creasey</who>
+    <bug_when>2005-05-10 14:55:53 -0400</bug_when>
+    <thetext>Marking closed</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>166416</bug_id>
+          
+          <creation_ts>2006-11-30 17:33:00 -0500</creation_ts>
+          <short_desc>NPE in NatureManager.computerNatureEnablement()</short_desc>
+          <delta_ts>2006-12-13 12:07:47 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.2</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.3 M4</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Konstantin Komissarchik">konstantin.komissarchik</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>842200</commentid>
+    <comment_count>0</comment_count>
+    <who name="Konstantin Komissarchik">konstantin.komissarchik</who>
+    <bug_when>2006-11-30 17:33:17 -0500</bug_when>
+    <thetext>Have seen this exception a couple of times in our test runs. Don't have a repro, but thought the stack trace may be enough to go on...
+
+[exec] java.lang.NullPointerException
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.computeNatureEnablements(NatureManager.java:50)
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.getEnabledNatures(NatureManager.java:332)
+     [exec]     at org.eclipse.core.internal.resources.NatureManager.isNatureEnabled(NatureManager.java:433)
+     [exec]     at org.eclipse.core.internal.resources.Project.isNatureEnabled(Project.java:730)</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>842243</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-11-30 18:49:19 -0500</bug_when>
+    <thetext>From inspecting the code, I see how this can happen if the project is deleted or closed concurrently in another thread.  I have released a fix.  Thanks for reporting this.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>842272</commentid>
+    <comment_count>2</comment_count>
+    <who name="Konstantin Komissarchik">konstantin.komissarchik</who>
+    <bug_when>2006-11-30 20:39:44 -0500</bug_when>
+    <thetext>Wow! That was quick. We will no be able to verify this since we are not sure of the repro, so I am marking this closed. Thanks for the fix!</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>849740</commentid>
+    <comment_count>3</comment_count>
+    <who name="Konstantin Komissarchik">konstantin.komissarchik</who>
+    <bug_when>2006-12-13 12:07:47 -0500</bug_when>
+    <thetext>*** Bug 167691 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>27922</bug_id>
+          
+          <creation_ts>2002-12-09 05:12:00 -0500</creation_ts>
+          <short_desc>Performance tools packaged incorrectly</short_desc>
+          <delta_ts>2006-07-10 06:58:04 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>2.1</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows 2000</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>2.1 M5</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Gary Karasiuk">gkarasiuk</reporter>
+          <assigned_to name="DJ Houghton">dj_houghton</assigned_to>
+          <cc>jeffmcaffer</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>111693</commentid>
+    <comment_count>0</comment_count>
+    <who name="Gary Karasiuk">gkarasiuk</who>
+    <bug_when>2002-12-09 05:12:25 -0500</bug_when>
+    <thetext>I pointed my update manager at 
+
+http://eclipse.org/eclipse/development/performance
+
+but the tools were installed in the wrong location. They were installed one
+directory too deep. For example:
+
+U:\eclipse21\plugins\org.eclipse.core.tools_1.0.0\org.eclipse.core.tools_1.0.0</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>128219</commentid>
+    <comment_count>1</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2003-02-07 16:58:17 -0500</bug_when>
+    <thetext>Fixed.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>747675</commentid>
+    <comment_count>2</comment_count>
+    <who name="Gary Karasiuk">gkarasiuk</who>
+    <bug_when>2006-07-10 06:58:04 -0400</bug_when>
+    <thetext>Cleaning up old defects.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

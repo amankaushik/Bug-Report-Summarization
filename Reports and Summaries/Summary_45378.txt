@@ -1,0 +1,26 @@
+As requested.
+Test Case
+---------
+
+1.
+Open the 'Navigator View'.
+Create a new 'Java' Project using the     
+File>New>Project workbench menu option.
+Give the project a name.
+Create a new package under the project.
+Use the File>New>Package workbench 
+menu option.
+Open the 'Package Explorer' view.
+If not alread opened by previous steps.
+Take a java source file from your desktop and drag and drop it over 
+the 'Package Explorer' view into the package you created.
+Expected Result
+---------------
+The source file is added to the Package.
+Problem
+-------
+The workbench freezes.
+It appears to go into an infinite loop.
+The CPU usage 
+goes to almost 100%.
+The user needs to kill the java console to get out of it.

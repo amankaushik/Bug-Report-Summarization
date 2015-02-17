@@ -1,0 +1,33 @@
+bug_id,product,component,assigned_to,bug_status,resolution,short_desc,changeddate
+14165,Platform,Resources,john_arthorne,CLOSED,FIXED,Migration of closed project can hide/lose data,2004-09-16 12:05:00
+14255,Platform,Resources,john_arthorne,CLOSED,FIXED,DBCS: Add from Local History incorrect for DBCS project name,2002-07-01 21:23:44
+152493,Platform,Resources,john_arthorne,CLOSED,FIXED,Nature instances copied on project copy and paste,2006-09-25 15:46:16
+273738,Platform,IDE,pwebster,CLOSED,FIXED,"[EditorMgmt] [BiDi] BIDI3.5:HCG_Incorrect text orientation of ""Path"" column of list view on ""Swithch To Editor"" page.",2009-05-13 07:58:07
+307163,Platform,IDE,serge,CLOSED,FIXED,DBCS3.6: Resource Filter UI didn't restore grouped filters,2010-04-16 03:58:19
+27922,Platform,Resources,dj_houghton,CLOSED,FIXED,Performance tools packaged incorrectly,2006-07-10 06:58:04
+50804,Platform,Resources,dj_houghton,CLOSED,FIXED,Preferences are inaccessible without loading the Plugin runtime class,2005-03-02 10:02:02
+189823,Platform,IDE,eclipse,CLOSED,FIXED,[WorkbenchLauncher] -showlocation does not work with 3.3RC2,2007-09-06 08:53:58
+58818,Platform,Resources,eclipse.rc,CLOSED,FIXED,DBCS: Error dialog pop up at file search,2004-04-26 03:32:25
+45378,Platform,Resources,john_arthorne,CLOSED,FIXED,Dragging Files Into Pkg/Nav Explorer Causes Eclipse To Freeze (Infinite Loop),2003-12-05 10:17:50
+55585,Platform,Resources,john_arthorne,CLOSED,FIXED,Project Description should allow silent setting of invalid Project Nature,2005-03-02 09:50:20
+97712,Platform,Resources,john_arthorne,CLOSED,FIXED,Creating a project  which  only has  periods  throws  exception,2005-06-21 16:17:24
+161327,Platform,Resources,john_arthorne,CLOSED,FIXED,"on deleting a large project, deletion operation does not report progress ,  jumps from 0 to 99%",2007-06-06 14:06:43
+178730,Platform,Resources,john_arthorne,CLOSED,FIXED,[navigation] Fake CU must use encoding from IEncodedStorage (GB18030: DBCS),2007-04-24 20:55:39
+403411,Platform,IDE,krzysztof.daniel,CLOSED,FIXED,!ENTRY org.eclipse.osgi !MESSAGE Application error !STACK 1 java.util.EmptyStackException,2013-05-24 09:26:48
+307140,Platform,Resources,malgorzata.tomczyk,CLOSED,FIXED,Refator->Move a project to subdirectory deletes it,2011-11-09 08:14:27
+30469,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,[resources] DBCS: Creating a DBCS file name without the extention causing hang,2003-04-01 05:42:41
+44897,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,Eclipse 3.0 M4 explodes on startup.,2003-10-15 11:38:11
+72011,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,Predefined path variables,2010-09-02 07:55:18
+86263,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,Constructing singularity/plurality through variable substitution in property strings.,2005-02-25 11:51:57
+94070,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,3.1: tct 86-Clarification for translation,2005-05-09 22:25:04
+130266,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,Problem importing project when org.eclipse.jdt.core.prefs is read-only,2011-06-27 23:03:25
+166416,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,NPE in NatureManager.computerNatureEnablement(),2006-12-13 12:07:47
+271910,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,Renaming a project causes the path variables to be changed unexpectedly,2010-03-03 06:04:14
+305036,Platform,Resources,platform-resources-inbox,CLOSED,FIXED,[Path Variables] Minor API changes in Dynamic Path Variables area,2011-03-14 06:15:57
+304287,Platform,IDE,Platform-UI-Inbox,CLOSED,FIXED,Eclipse on Windows 7 (64) bit Does'nt Start.,2013-05-24 09:31:11
+306613,Platform,IDE,Platform-UI-Inbox,CLOSED,FIXED,Ide will not start,2010-03-29 15:28:21
+413687,Platform,IDE,Platform-UI-Inbox,CLOSED,FIXED,"Re-indexing repository automatically starts, never ends, consumes 100% CPU and then fails",2013-07-24 19:25:04
+197422,Platform,IDE,platform-ui-triaged,CLOSED,FIXED,[LinkedResources] Cannot create a linked resource to a file with whitespace when using a link variable,2011-10-24 05:33:15
+297303,Platform,IDE,serge,CLOSED,FIXED,Resource filters cannot be edited for linked packages,2011-05-06 04:07:14
+247689,Platform,Resources,Szymon.Brandys,CLOSED,FIXED,performance issues in ContentDescriptionManager/XMLRootHandler,2009-01-26 05:00:10
+58289,Platform,Resources,Tod_Creasey,CLOSED,FIXED,Need better message when progress monitor is blocked,2005-05-10 14:55:53

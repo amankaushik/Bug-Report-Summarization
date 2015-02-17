@@ -1,0 +1,13 @@
+In the file:
+
+eclipse\plugins\org.eclipse.core.resources\ant_tasks\resources-
+ant_jar\org\eclipse\core\resources\ant\messages.properties
+
+the translators have a problem with the following property strings:
+
+copy.files=Copying {0} file{1} to {2}.
+copy.result=Copied {0} empty director{1} to {2}.
+It appears that the {1} in both strings is used to create plurality in cases 
+where {0} is greater than one.
+Since different languages handle this 
+differently the translators are having a problem.

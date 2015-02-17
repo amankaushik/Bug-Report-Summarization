@@ -1,0 +1,105 @@
+Select an EJB project in the Project Explorer (probably any module project will
+do)
+Copy it
+Paste it back into the view 
+
+
+*** ERROR ***: Fri Jul 28 09:41:57 EDT 2006    java.lang.NullPointerException
+        at
+org.eclipse.wst.common.internal.emf.resource.IDTranslator.setMOFValue(IDTranslator.java:45)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOFFeature(EMF2DOMAdapterImpl.java:1362)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOFFeature(EMF2DOMAdapterImpl.java:1718)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOF(EMF2DOMAdapterImpl.java:892)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOF(EMF2DOMAdapterImpl.java:872)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOFMultiFeature(EMF2DOMAdapterImpl.java:420)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOFRootFeature(EMF2DOMAdapterImpl.java:913)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOF(EMF2DOMAdapterImpl.java:888)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOF(EMF2DOMAdapterImpl.java:872)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMRenderer.doLoad(EMF2DOMRenderer.java:62)
+        at
+org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl.basicDoLoad(TranslatorResourceImpl.java:142)
+        at
+org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl.doLoad(CompatibilityXMIResourceImpl.java:173)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1089)
+        at
+org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl.load(TranslatorResourceImpl.java:391)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:249)
+        at
+org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.demandLoad(ProjectResourceSetImpl.java:83)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:264)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.getResource(ResourceSetImpl.java:390)
+        at
+org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.getResource(ProjectResourceSetImpl.java:262)
+        at
+org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper.getOrCreateResource(WorkbenchResourceHelper.java:384)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getResource(EditModel.java:717)
+        at
+org.eclipse.wst.common.componentcore.internal.ArtifactEditModel.getResource(ArtifactEditModel.java:173)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getPrimaryResource(EditModel.java:1550)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getPrimaryRootObject(EditModel.java:1531)
+        at
+org.eclipse.wst.common.componentcore.ArtifactEdit.getContentModelRoot(ArtifactEdit.java:461)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getWorkspace14ServiceRefs(WebServicesManager.java:644)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getAllWorkspaceServiceRefs(WebServicesManager.java:610)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.notifyListeners(WebServicesManager.java:268)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.visit(WebServicesManager.java:798)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:67)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:76)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.acceptDelta(WebServicesManager.java:338)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.resourceChanged(WebServicesManager.java:329)
+        at
+org.eclipse.core.internal.events.NotificationManager$2.run(NotificationManager.java:280)
+        at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+        at
+org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:274)
+        at
+org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:148)
+        at
+org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:256)
+        at
+org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:958)
+        at
+org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1746)
+        at
+org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:113)
+        at
+org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:113)
+
+!ENTRY org.eclipse.core.resources 2 1 2006-07-28 09:41:57.693
+!MESSAGE Skipping builder com.ibm.etools.common.migration.MigrationBuilder for
+project YetAnotherEjb.
+A new instance of the nature should be created for the new project.Created attachment 47501
+JUnit test case
+
+This simple JUnit test creates a java project and then copies it.
+The problem appears to be that the ProjectInfo is copied using a shallow copy and the natures list is the same for both projects in the workspace tree.Thanks for the JUnit test, I can reproduce it.
+The nature instance should be nulled out in the destination project on copy.
+This very nearly missed the boat for 3.2.1.Verified this version is released now.
+Either the builder is missing from the install, or it
+belongs to a project nature that is missing or disabled.

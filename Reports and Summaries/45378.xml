@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>45378</bug_id>
+          
+          <creation_ts>2003-10-22 10:48:00 -0400</creation_ts>
+          <short_desc>Dragging Files Into Pkg/Nav Explorer Causes Eclipse To Freeze (Infinite Loop)</short_desc>
+          <delta_ts>2003-12-05 10:17:50 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows All</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>major</bug_severity>
+          <target_milestone>3.0 M5</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Daniel Figoni">dfigoni</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          <cc>dj_houghton</cc>
+    
+    <cc>farrellp</cc>
+    
+    <cc>hans</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>196832</commentid>
+    <comment_count>0</comment_count>
+    <who name="Daniel Figoni">dfigoni</who>
+    <bug_when>2003-10-22 10:48:15 -0400</bug_when>
+    <thetext>Test Case
+---------
+
+1. Open the 'Navigator View'.  Create a new 'Java' Project using the     
+File&gt;New&gt;Project workbench menu option.  Give the project a name.
+
+2. Create a new package under the project.   Use the File&gt;New&gt;Package workbench 
+menu option.
+
+3. Open the 'Package Explorer' view. If not alread opened by previous steps.
+
+4. Take a java source file from your desktop and drag and drop it over 
+the 'Package Explorer' view into the package you created. 
+
+Expected Result
+---------------
+The source file is added to the Package.
+
+Problem
+-------
+The workbench freezes.  It appears to go into an infinite loop.  The CPU usage 
+goes to almost 100%.  The user needs to kill the java console to get out of it.
+
+This problem is reproducible only in WindowsNT.  It seems to work fine on Win2K 
+and WinXP.
+
+NOTE(S):  
+- This problem was found in 2.1.2RC1.  I couldn't set the version to this 
+release in the bug report.
+- OS used was Windows NT SP6 with all windows updates applied.
+- JRE was 1.4.1_03</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197381</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-23 18:09:14 -0400</bug_when>
+    <thetext>Can you try the following:
+
+1 launch with java.exe instead of javaw.exe
+2 when the machine is stuck in an infinite loop, hit ctrl+Break to produce a
+stack dump.
+3 attach stack dump (See &quot;Create a New Attachment&quot; link in bugzilla).
+4 repeat one more time, so we can see where the loop is.
+
+Note that you're not likely to get much support for NT, as it's no longer
+supported in the 3.0 dev stream. I don't even think we have an NT machine to
+test this...</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197567</commentid>
+    <comment_count>2</comment_count>
+      <attachid>6544</attachid>
+    <who name="Daniel Figoni">dfigoni</who>
+    <bug_when>2003-10-24 12:21:40 -0400</bug_when>
+    <thetext>Created attachment 6544
+Stack dump from the encountered situation.
+
+As requested. I've attached the stack dump.
+Thanks.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197621</commentid>
+    <comment_count>3</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 14:37:12 -0400</bug_when>
+    <thetext>This may be caused by a core bug.  It appears that the infinite loop is in a
+while that looks like this:
+
+while (path.isEmpty() == false &amp;&amp; path.isRoot() == false) {
+  ...
+  path = path.removeLastSegments(1);
+}
+
+IPath.isRoot is specified as:
+
+ * The root path is the absolute path with zero segments; 
+ * e.g., &lt;code&gt;/&lt;/code&gt; or &lt;code&gt;C:/&lt;/code&gt;.
+
+IPath.isEmpty is specified as:
+
+ * Returns whether this path has no segments and is not
+ * a root path.
+
+
+Now, what if the path is a UNC path?  The spec doesn't mention either way.  In
+reality, new Path(&quot;//&quot;).isRoot() returns false, and new Path(&quot;//&quot;).isEmpty()
+returns false.  This violates the spec of isEmpty since // is not the root path.
+This also causes the loop described above to be infinite.
+
+The implementation of Path.isRoot explicitly says the empty UNC path is not the
+root path.  I suggest changing the implementation of Path.isEmpty to return true
+for &quot;//&quot;.
+
+Too risky to put a change into 2.1.2, but we could consider for 2.1.3 after
+sufficient testing of the fix in the 3.0 stream.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197629</commentid>
+    <comment_count>4</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 15:04:03 -0400</bug_when>
+    <thetext>Daniel, can you try right-clicking on the destination project, look under
+properties &gt; info, and tell me what you see under &quot;location&quot;?  I'm most
+interested in whether the location is a UNC path (starting with &quot;//&quot;).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197633</commentid>
+    <comment_count>5</comment_count>
+    <who name="Daniel Figoni">dfigoni</who>
+    <bug_when>2003-10-24 15:13:33 -0400</bug_when>
+    <thetext>The destination project's Properties &gt; Info shows:
+
+Location:  C:\\myWorkSpace\AJava
+
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197646</commentid>
+    <comment_count>6</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 15:31:31 -0400</bug_when>
+    <thetext>That explain it.  That extra &quot;/&quot; in your workspace path is the cause of the
+problem.  You must be running with &quot;-data c://myWorkSpace&quot;.  If you remove the
+extra slash the problem should go away.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197647</commentid>
+    <comment_count>7</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 15:32:04 -0400</bug_when>
+    <thetext>With this path I can reproduce on Windows 2000.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197650</commentid>
+    <comment_count>8</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 15:37:42 -0400</bug_when>
+    <thetext>Fix tested and released in 3.0 development stream.  Tests added in PathTest to
+cover behaviour of isEmpty and isRoot for UNC paths.  IPath spec updated to
+indicate that &quot;//&quot; is not a root path (and therefore it is an empty path).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>197651</commentid>
+    <comment_count>9</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-24 15:38:07 -0400</bug_when>
+    <thetext>Forgot to close.  Sorry for the flood of emails.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>207042</commentid>
+    <comment_count>10</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-11-26 17:01:21 -0500</bug_when>
+    <thetext>*** Bug 34804 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>209696</commentid>
+    <comment_count>11</comment_count>
+    <who name="Daniel Figoni">dfigoni</who>
+    <bug_when>2003-12-05 10:17:50 -0500</bug_when>
+    <thetext>I tested the fix in 3.0 M5 (build 200311211210) both on WinNT and Win2k.  
+The fix solved the problem. 
+Thanks.
+Closing.</thetext>
+  </long_desc>
+      
+          <attachment isobsolete="0" ispatch="0" isprivate="0">
+            <attachid>6544</attachid>
+            <date>2003-10-24 12:21:00 -0400</date>
+            <delta_ts>2003-10-24 12:21:40 -0400</delta_ts>
+            <desc>Stack dump from the encountered situation.</desc>
+            <filename>stack_dump.txt</filename>
+            <type>text/plain</type>
+            <size>9511</size>
+            <attacher name="Daniel Figoni">dfigoni</attacher>
+            
+              <data encoding="base64">RnVsbCB0aHJlYWQgZHVtcCBKYXZhIEhvdFNwb3QoVE0pIENsaWVudCBWTSAoMS40LjFfMDUtYjAx
+IG1peGVkIG1vZGUpOg0KDQoiRGVjb3JhdGlvbiIgZGFlbW9uIHByaW89MiB0aWQ9MHgwMDdDMTA2
+MCBuaWQ9MHhiNiBpbiBPYmplY3Qud2FpdCgpIFtiZDFmMDAwLi5iZA0KMWZkOTBdDQogICAgICAg
+IGF0IGphdmEubGFuZy5PYmplY3Qud2FpdChOYXRpdmUgTWV0aG9kKQ0KICAgICAgICAtIHdhaXRp
+bmcgb24gPDAzMjNGMzMwPiAoYSBvcmcuZWNsaXBzZS51aS5pbnRlcm5hbC5kZWNvcmF0b3JzLkRl
+Y29yYXRpb24NClNjaGVkdWxlcikNCiAgICAgICAgYXQgamF2YS5sYW5nLk9iamVjdC53YWl0KFVu
+a25vd24gU291cmNlKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS51aS5pbnRlcm5hbC5kZWNvcmF0
+b3JzLkRlY29yYXRpb25TY2hlZHVsZXIubmV4dChEZWNvcmF0aW8NCm5TY2hlZHVsZXIuamF2YToy
+MTQpDQogICAgICAgIC0gbG9ja2VkIDwwMzIzRjMzMD4gKGEgb3JnLmVjbGlwc2UudWkuaW50ZXJu
+YWwuZGVjb3JhdG9ycy5EZWNvcmF0aW9uU2NoZQ0KZHVsZXIpDQogICAgICAgIGF0IG9yZy5lY2xp
+cHNlLnVpLmludGVybmFsLmRlY29yYXRvcnMuRGVjb3JhdGlvblNjaGVkdWxlciQyLnJ1bihEZWNv
+cmF0aQ0Kb25TY2hlZHVsZXIuamF2YToyNDApDQogICAgICAgIGF0IGphdmEubGFuZy5UaHJlYWQu
+cnVuKFVua25vd24gU291cmNlKQ0KDQoiSmF2YSBpbmRleGluZyIgZGFlbW9uIHByaW89NCB0aWQ9
+MHgwMDdBRTlFMCBuaWQ9MHhjZCB3YWl0aW5nIG9uIGNvbmRpdGlvbiBbYmI2Zg0KMDAwLi5iYjZm
+ZDkwXQ0KICAgICAgICBhdCBqYXZhLmxhbmcuVGhyZWFkLnNsZWVwKE5hdGl2ZSBNZXRob2QpDQog
+ICAgICAgIGF0IG9yZy5lY2xpcHNlLmpkdC5pbnRlcm5hbC5jb3JlLnNlYXJjaC5wcm9jZXNzaW5n
+LkpvYk1hbmFnZXIucnVuKEpvYk1hbg0KYWdlci5qYXZhOjM0OSkNCiAgICAgICAgYXQgamF2YS5s
+YW5nLlRocmVhZC5ydW4oVW5rbm93biBTb3VyY2UpDQoNCiJTaWduYWwgRGlzcGF0Y2hlciIgZGFl
+bW9uIHByaW89MTAgdGlkPTB4MDA3NEI5QzAgbmlkPTB4YzAgd2FpdGluZyBvbiBjb25kaXRpb24N
+ClswLi4wXQ0KDQoiRmluYWxpemVyIiBkYWVtb24gcHJpbz05IHRpZD0weDAwNzQ3QUEwIG5pZD0w
+eGNhIGluIE9iamVjdC53YWl0KCkgW2FjNmYwMDAuLmFjNg0KZmQ5MF0NCiAgICAgICAgYXQgamF2
+YS5sYW5nLk9iamVjdC53YWl0KE5hdGl2ZSBNZXRob2QpDQogICAgICAgIC0gd2FpdGluZyBvbiA8
+MDMwMDY5OTA+IChhIGphdmEubGFuZy5yZWYuUmVmZXJlbmNlUXVldWUkTG9jaykNCiAgICAgICAg
+YXQgamF2YS5sYW5nLnJlZi5SZWZlcmVuY2VRdWV1ZS5yZW1vdmUoVW5rbm93biBTb3VyY2UpDQog
+ICAgICAgIC0gbG9ja2VkIDwwMzAwNjk5MD4gKGEgamF2YS5sYW5nLnJlZi5SZWZlcmVuY2VRdWV1
+ZSRMb2NrKQ0KICAgICAgICBhdCBqYXZhLmxhbmcucmVmLlJlZmVyZW5jZVF1ZXVlLnJlbW92ZShV
+bmtub3duIFNvdXJjZSkNCiAgICAgICAgYXQgamF2YS5sYW5nLnJlZi5GaW5hbGl6ZXIkRmluYWxp
+emVyVGhyZWFkLnJ1bihVbmtub3duIFNvdXJjZSkNCg0KIlJlZmVyZW5jZSBIYW5kbGVyIiBkYWVt
+b24gcHJpbz0xMCB0aWQ9MHgwMDc0NjgyMCBuaWQ9MHg0MSBpbiBPYmplY3Qud2FpdCgpIFthYzIN
+CmYwMDAuLmFjMmZkOTBdDQogICAgICAgIGF0IGphdmEubGFuZy5PYmplY3Qud2FpdChOYXRpdmUg
+TWV0aG9kKQ0KICAgICAgICAtIHdhaXRpbmcgb24gPDAzMDA2OUY4PiAoYSBqYXZhLmxhbmcucmVm
+LlJlZmVyZW5jZSRMb2NrKQ0KICAgICAgICBhdCBqYXZhLmxhbmcuT2JqZWN0LndhaXQoVW5rbm93
+biBTb3VyY2UpDQogICAgICAgIGF0IGphdmEubGFuZy5yZWYuUmVmZXJlbmNlJFJlZmVyZW5jZUhh
+bmRsZXIucnVuKFVua25vd24gU291cmNlKQ0KICAgICAgICAtIGxvY2tlZCA8MDMwMDY5Rjg+IChh
+IGphdmEubGFuZy5yZWYuUmVmZXJlbmNlJExvY2spDQoNCiJtYWluIiBwcmlvPTUgdGlkPTB4MDA3
+NDE3MDAgbmlkPTB4M2UgcnVubmFibGUgWzZlMDAwLi42ZmM0MF0NCiAgICAgICAgYXQgb3JnLmVj
+bGlwc2UuY29yZS5ydW50aW1lLlBhdGguPGluaXQ+KFBhdGguamF2YTo4MykNCiAgICAgICAgYXQg
+b3JnLmVjbGlwc2UuY29yZS5ydW50aW1lLlBhdGgucmVtb3ZlTGFzdFNlZ21lbnRzKFBhdGguamF2
+YTo3MDUpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnVpLmFjdGlvbnMuQ29weUZpbGVzQW5kRm9s
+ZGVyc09wZXJhdGlvbi52YWxpZGF0ZUltcG9ydERlcw0KdGluYXRpb24oQ29weUZpbGVzQW5kRm9s
+ZGVyc09wZXJhdGlvbi5qYXZhOjExNDApDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnVpLnZpZXdz
+Lm5hdmlnYXRvci5OYXZpZ2F0b3JEcm9wQWRhcHRlci52YWxpZGF0ZVRhcmdldChOYQ0KdmlnYXRv
+ckRyb3BBZGFwdGVyLmphdmE6MzcxKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS51aS52aWV3cy5u
+YXZpZ2F0b3IuTmF2aWdhdG9yRHJvcEFkYXB0ZXIudmFsaWRhdGVEcm9wKE5hdmkNCmdhdG9yRHJv
+cEFkYXB0ZXIuamF2YTozMjcpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLmpmYWNlLnZpZXdlcnMu
+Vmlld2VyRHJvcEFkYXB0ZXIuZG9Ecm9wVmFsaWRhdGlvbihWaWV3ZXJEcg0Kb3BBZGFwdGVyLmph
+dmE6MTYxKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5qZmFjZS52aWV3ZXJzLlZpZXdlckRyb3BB
+ZGFwdGVyLmRyYWdPdmVyKFZpZXdlckRyb3BBZGFwdGUNCnIuamF2YToyMTMpDQogICAgICAgIGF0
+IG9yZy5lY2xpcHNlLnN3dC5kbmQuRE5ETGlzdGVuZXIuaGFuZGxlRXZlbnQoRE5ETGlzdGVuZXIu
+amF2YTo1OSkNCiAgICAgICAgYXQgb3JnLmVjbGlwc2Uuc3d0LndpZGdldHMuRXZlbnRUYWJsZS5z
+ZW5kRXZlbnQoRXZlbnRUYWJsZS5qYXZhOjgxKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3Qu
+d2lkZ2V0cy5XaWRnZXQuc2VuZEV2ZW50KFdpZGdldC5qYXZhOjg0MCkNCiAgICAgICAgYXQgb3Jn
+LmVjbGlwc2Uuc3d0LndpZGdldHMuV2lkZ2V0LnNlbmRFdmVudChXaWRnZXQuamF2YTo4NjUpDQog
+ICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC53aWRnZXRzLldpZGdldC5zZW5kRXZlbnQoV2lkZ2V0
+LmphdmE6ODQ5KQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3Qud2lkZ2V0cy5XaWRnZXQubm90
+aWZ5TGlzdGVuZXJzKFdpZGdldC5qYXZhOjY1NikNCiAgICAgICAgYXQgb3JnLmVjbGlwc2Uuc3d0
+LmRuZC5Ecm9wVGFyZ2V0Lm5vdGlmeUxpc3RlbmVycyhEcm9wVGFyZ2V0LmphdmE6NTU2KQ0KICAg
+ICAgICBhdCBvcmcuZWNsaXBzZS5zd3QuZG5kLkRyb3BUYXJnZXQuRHJhZ092ZXIoRHJvcFRhcmdl
+dC5qYXZhOjM4NykNCiAgICAgICAgYXQgb3JnLmVjbGlwc2Uuc3d0LmRuZC5Ecm9wVGFyZ2V0LmFj
+Y2VzcyQ1KERyb3BUYXJnZXQuamF2YTozNTYpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC5k
+bmQuRHJvcFRhcmdldCQzLm1ldGhvZDQoRHJvcFRhcmdldC5qYXZhOjIyNykNCiAgICAgICAgYXQg
+b3JnLmVjbGlwc2Uuc3d0LmludGVybmFsLm9sZS53aW4zMi5DT01PYmplY3QuY2FsbGJhY2s0KENP
+TU9iamVjdC5qYXZhDQo6OTcpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC5pbnRlcm5hbC53
+aW4zMi5PUy5EaXNwYXRjaE1lc3NhZ2VXKE5hdGl2ZSBNZXRob2QpDQogICAgICAgIGF0IG9yZy5l
+Y2xpcHNlLnN3dC5pbnRlcm5hbC53aW4zMi5PUy5EaXNwYXRjaE1lc3NhZ2UoT1MuamF2YToxMzEz
+KQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3Qud2lkZ2V0cy5EaXNwbGF5LnJlYWRBbmREaXNw
+YXRjaChEaXNwbGF5LmphdmE6MTcyNykNCiAgICAgICAgYXQgb3JnLmVjbGlwc2UudWkuaW50ZXJu
+YWwuV29ya2JlbmNoLnJ1bkV2ZW50TG9vcChXb3JrYmVuY2guamF2YToxNDAyKQ0KICAgICAgICBh
+dCBvcmcuZWNsaXBzZS51aS5pbnRlcm5hbC5Xb3JrYmVuY2gucnVuKFdvcmtiZW5jaC5qYXZhOjEz
+ODUpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLmNvcmUuaW50ZXJuYWwuYm9vdC5JbnRlcm5hbEJv
+b3RMb2FkZXIucnVuKEludGVybmFsQm9vdExvYQ0KZGVyLmphdmE6ODU4KQ0KICAgICAgICBhdCBv
+cmcuZWNsaXBzZS5jb3JlLmJvb3QuQm9vdExvYWRlci5ydW4oQm9vdExvYWRlci5qYXZhOjQ2MSkN
+CiAgICAgICAgYXQgc3VuLnJlZmxlY3QuTmF0aXZlTWV0aG9kQWNjZXNzb3JJbXBsLmludm9rZTAo
+TmF0aXZlIE1ldGhvZCkNCiAgICAgICAgYXQgc3VuLnJlZmxlY3QuTmF0aXZlTWV0aG9kQWNjZXNz
+b3JJbXBsLmludm9rZShVbmtub3duIFNvdXJjZSkNCiAgICAgICAgYXQgc3VuLnJlZmxlY3QuRGVs
+ZWdhdGluZ01ldGhvZEFjY2Vzc29ySW1wbC5pbnZva2UoVW5rbm93biBTb3VyY2UpDQogICAgICAg
+IGF0IGphdmEubGFuZy5yZWZsZWN0Lk1ldGhvZC5pbnZva2UoVW5rbm93biBTb3VyY2UpDQogICAg
+ICAgIGF0IG9yZy5lY2xpcHNlLmNvcmUubGF1bmNoZXIuTWFpbi5iYXNpY1J1bihNYWluLmphdmE6
+MjkxKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5jb3JlLmxhdW5jaGVyLk1haW4ucnVuKE1haW4u
+amF2YTo3NDcpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLmNvcmUubGF1bmNoZXIuTWFpbi5tYWlu
+KE1haW4uamF2YTo1ODMpDQoNCiJWTSBUaHJlYWQiIHByaW89NSB0aWQ9MHgwMDc0NUIyMCBuaWQ9
+MHhiZiBydW5uYWJsZQ0KDQoiVk0gUGVyaW9kaWMgVGFzayBUaHJlYWQiIHByaW89MTAgdGlkPTB4
+MDA3NEFERDAgbmlkPTB4M2Ygd2FpdGluZyBvbiBjb25kaXRpb24NCiJTdXNwZW5kIENoZWNrZXIg
+VGhyZWFkIiBwcmlvPTEwIHRpZD0weDAwNzRBNDcwIG5pZD0weDY0IHJ1bm5hYmxlDQoNCkZ1bGwg
+dGhyZWFkIGR1bXAgSmF2YSBIb3RTcG90KFRNKSBDbGllbnQgVk0gKDEuNC4xXzA1LWIwMSBtaXhl
+ZCBtb2RlKToNCg0KIkRlY29yYXRpb24iIGRhZW1vbiBwcmlvPTIgdGlkPTB4MDA3QzEwNjAgbmlk
+PTB4NTggaW4gT2JqZWN0LndhaXQoKSBbYmQxZjAwMC4uYmQNCjFmZDkwXQ0KICAgICAgICBhdCBq
+YXZhLmxhbmcuT2JqZWN0LndhaXQoTmF0aXZlIE1ldGhvZCkNCiAgICAgICAgLSB3YWl0aW5nIG9u
+IDwwMzIzRUYxOD4gKGEgb3JnLmVjbGlwc2UudWkuaW50ZXJuYWwuZGVjb3JhdG9ycy5EZWNvcmF0
+aW9uDQpTY2hlZHVsZXIpDQogICAgICAgIGF0IGphdmEubGFuZy5PYmplY3Qud2FpdChVbmtub3du
+IFNvdXJjZSkNCiAgICAgICAgYXQgb3JnLmVjbGlwc2UudWkuaW50ZXJuYWwuZGVjb3JhdG9ycy5E
+ZWNvcmF0aW9uU2NoZWR1bGVyLm5leHQoRGVjb3JhdGlvDQpuU2NoZWR1bGVyLmphdmE6MjE0KQ0K
+ICAgICAgICAtIGxvY2tlZCA8MDMyM0VGMTg+IChhIG9yZy5lY2xpcHNlLnVpLmludGVybmFsLmRl
+Y29yYXRvcnMuRGVjb3JhdGlvblNjaGUNCmR1bGVyKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS51
+aS5pbnRlcm5hbC5kZWNvcmF0b3JzLkRlY29yYXRpb25TY2hlZHVsZXIkMi5ydW4oRGVjb3JhdGkN
+Cm9uU2NoZWR1bGVyLmphdmE6MjQwKQ0KICAgICAgICBhdCBqYXZhLmxhbmcuVGhyZWFkLnJ1bihV
+bmtub3duIFNvdXJjZSkNCg0KIkphdmEgaW5kZXhpbmciIGRhZW1vbiBwcmlvPTQgdGlkPTB4MDA3
+QUVEMjAgbmlkPTB4M2Ugd2FpdGluZyBvbiBjb25kaXRpb24gW2JiNmYNCjAwMC4uYmI2ZmQ5MF0N
+CiAgICAgICAgYXQgamF2YS5sYW5nLlRocmVhZC5zbGVlcChOYXRpdmUgTWV0aG9kKQ0KICAgICAg
+ICBhdCBvcmcuZWNsaXBzZS5qZHQuaW50ZXJuYWwuY29yZS5zZWFyY2gucHJvY2Vzc2luZy5Kb2JN
+YW5hZ2VyLnJ1bihKb2JNYW4NCmFnZXIuamF2YTozNDkpDQogICAgICAgIGF0IGphdmEubGFuZy5U
+aHJlYWQucnVuKFVua25vd24gU291cmNlKQ0KDQoiU2lnbmFsIERpc3BhdGNoZXIiIGRhZW1vbiBw
+cmlvPTEwIHRpZD0weDAwNzRCQTIwIG5pZD0weGNkIHdhaXRpbmcgb24gY29uZGl0aW9uDQpbMC4u
+MF0NCg0KIkZpbmFsaXplciIgZGFlbW9uIHByaW89OSB0aWQ9MHgwMDc0N0FBMCBuaWQ9MHg2NyBp
+biBPYmplY3Qud2FpdCgpIFthYzZmMDAwLi5hYzYNCmZkOTBdDQogICAgICAgIGF0IGphdmEubGFu
+Zy5PYmplY3Qud2FpdChOYXRpdmUgTWV0aG9kKQ0KICAgICAgICAtIHdhaXRpbmcgb24gPDAzMDA2
+OTkwPiAoYSBqYXZhLmxhbmcucmVmLlJlZmVyZW5jZVF1ZXVlJExvY2spDQogICAgICAgIGF0IGph
+dmEubGFuZy5yZWYuUmVmZXJlbmNlUXVldWUucmVtb3ZlKFVua25vd24gU291cmNlKQ0KICAgICAg
+ICAtIGxvY2tlZCA8MDMwMDY5OTA+IChhIGphdmEubGFuZy5yZWYuUmVmZXJlbmNlUXVldWUkTG9j
+aykNCiAgICAgICAgYXQgamF2YS5sYW5nLnJlZi5SZWZlcmVuY2VRdWV1ZS5yZW1vdmUoVW5rbm93
+biBTb3VyY2UpDQogICAgICAgIGF0IGphdmEubGFuZy5yZWYuRmluYWxpemVyJEZpbmFsaXplclRo
+cmVhZC5ydW4oVW5rbm93biBTb3VyY2UpDQoNCiJSZWZlcmVuY2UgSGFuZGxlciIgZGFlbW9uIHBy
+aW89MTAgdGlkPTB4MDA3NDY4MjAgbmlkPTB4NjQgaW4gT2JqZWN0LndhaXQoKSBbYWMyDQpmMDAw
+Li5hYzJmZDkwXQ0KICAgICAgICBhdCBqYXZhLmxhbmcuT2JqZWN0LndhaXQoTmF0aXZlIE1ldGhv
+ZCkNCiAgICAgICAgLSB3YWl0aW5nIG9uIDwwMzAwNjlGOD4gKGEgamF2YS5sYW5nLnJlZi5SZWZl
+cmVuY2UkTG9jaykNCiAgICAgICAgYXQgamF2YS5sYW5nLk9iamVjdC53YWl0KFVua25vd24gU291
+cmNlKQ0KICAgICAgICBhdCBqYXZhLmxhbmcucmVmLlJlZmVyZW5jZSRSZWZlcmVuY2VIYW5kbGVy
+LnJ1bihVbmtub3duIFNvdXJjZSkNCiAgICAgICAgLSBsb2NrZWQgPDAzMDA2OUY4PiAoYSBqYXZh
+LmxhbmcucmVmLlJlZmVyZW5jZSRMb2NrKQ0KDQoibWFpbiIgcHJpbz01IHRpZD0weDAwNzQxNzAw
+IG5pZD0weDQxIHJ1bm5hYmxlIFs2ZTAwMC4uNmZjNDBdDQogICAgICAgIGF0IG9yZy5lY2xpcHNl
+LmNvcmUucnVudGltZS5QYXRoLnRvRmlsZShQYXRoLmphdmE6NzYxKQ0KICAgICAgICBhdCBvcmcu
+ZWNsaXBzZS51aS5hY3Rpb25zLkNvcHlGaWxlc0FuZEZvbGRlcnNPcGVyYXRpb24udmFsaWRhdGVJ
+bXBvcnREZXMNCnRpbmF0aW9uKENvcHlGaWxlc0FuZEZvbGRlcnNPcGVyYXRpb24uamF2YToxMTM2
+KQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS51aS52aWV3cy5uYXZpZ2F0b3IuTmF2aWdhdG9yRHJv
+cEFkYXB0ZXIudmFsaWRhdGVUYXJnZXQoTmENCnZpZ2F0b3JEcm9wQWRhcHRlci5qYXZhOjM3MSkN
+CiAgICAgICAgYXQgb3JnLmVjbGlwc2UudWkudmlld3MubmF2aWdhdG9yLk5hdmlnYXRvckRyb3BB
+ZGFwdGVyLnZhbGlkYXRlRHJvcChOYXZpDQpnYXRvckRyb3BBZGFwdGVyLmphdmE6MzI3KQ0KICAg
+ICAgICBhdCBvcmcuZWNsaXBzZS5qZmFjZS52aWV3ZXJzLlZpZXdlckRyb3BBZGFwdGVyLmRvRHJv
+cFZhbGlkYXRpb24oVmlld2VyRHINCm9wQWRhcHRlci5qYXZhOjE2MSkNCiAgICAgICAgYXQgb3Jn
+LmVjbGlwc2UuamZhY2Uudmlld2Vycy5WaWV3ZXJEcm9wQWRhcHRlci5kcmFnT3ZlcihWaWV3ZXJE
+cm9wQWRhcHRlDQpyLmphdmE6MjEzKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3QuZG5kLkRO
+RExpc3RlbmVyLmhhbmRsZUV2ZW50KERORExpc3RlbmVyLmphdmE6NTkpDQogICAgICAgIGF0IG9y
+Zy5lY2xpcHNlLnN3dC53aWRnZXRzLkV2ZW50VGFibGUuc2VuZEV2ZW50KEV2ZW50VGFibGUuamF2
+YTo4MSkNCiAgICAgICAgYXQgb3JnLmVjbGlwc2Uuc3d0LndpZGdldHMuV2lkZ2V0LnNlbmRFdmVu
+dChXaWRnZXQuamF2YTo4NDApDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC53aWRnZXRzLldp
+ZGdldC5zZW5kRXZlbnQoV2lkZ2V0LmphdmE6ODY1KQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5z
+d3Qud2lkZ2V0cy5XaWRnZXQuc2VuZEV2ZW50KFdpZGdldC5qYXZhOjg0OSkNCiAgICAgICAgYXQg
+b3JnLmVjbGlwc2Uuc3d0LndpZGdldHMuV2lkZ2V0Lm5vdGlmeUxpc3RlbmVycyhXaWRnZXQuamF2
+YTo2NTYpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC5kbmQuRHJvcFRhcmdldC5ub3RpZnlM
+aXN0ZW5lcnMoRHJvcFRhcmdldC5qYXZhOjU1NikNCiAgICAgICAgYXQgb3JnLmVjbGlwc2Uuc3d0
+LmRuZC5Ecm9wVGFyZ2V0LkRyYWdPdmVyKERyb3BUYXJnZXQuamF2YTozODcpDQogICAgICAgIGF0
+IG9yZy5lY2xpcHNlLnN3dC5kbmQuRHJvcFRhcmdldC5hY2Nlc3MkNShEcm9wVGFyZ2V0LmphdmE6
+MzU2KQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3QuZG5kLkRyb3BUYXJnZXQkMy5tZXRob2Q0
+KERyb3BUYXJnZXQuamF2YToyMjcpDQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnN3dC5pbnRlcm5h
+bC5vbGUud2luMzIuQ09NT2JqZWN0LmNhbGxiYWNrNChDT01PYmplY3QuamF2YQ0KOjk3KQ0KICAg
+ICAgICBhdCBvcmcuZWNsaXBzZS5zd3QuaW50ZXJuYWwud2luMzIuT1MuRGlzcGF0Y2hNZXNzYWdl
+VyhOYXRpdmUgTWV0aG9kKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5zd3QuaW50ZXJuYWwud2lu
+MzIuT1MuRGlzcGF0Y2hNZXNzYWdlKE9TLmphdmE6MTMxMykNCiAgICAgICAgYXQgb3JnLmVjbGlw
+c2Uuc3d0LndpZGdldHMuRGlzcGxheS5yZWFkQW5kRGlzcGF0Y2goRGlzcGxheS5qYXZhOjE3Mjcp
+DQogICAgICAgIGF0IG9yZy5lY2xpcHNlLnVpLmludGVybmFsLldvcmtiZW5jaC5ydW5FdmVudExv
+b3AoV29ya2JlbmNoLmphdmE6MTQwMikNCiAgICAgICAgYXQgb3JnLmVjbGlwc2UudWkuaW50ZXJu
+YWwuV29ya2JlbmNoLnJ1bihXb3JrYmVuY2guamF2YToxMzg1KQ0KICAgICAgICBhdCBvcmcuZWNs
+aXBzZS5jb3JlLmludGVybmFsLmJvb3QuSW50ZXJuYWxCb290TG9hZGVyLnJ1bihJbnRlcm5hbEJv
+b3RMb2ENCmRlci5qYXZhOjg1OCkNCiAgICAgICAgYXQgb3JnLmVjbGlwc2UuY29yZS5ib290LkJv
+b3RMb2FkZXIucnVuKEJvb3RMb2FkZXIuamF2YTo0NjEpDQogICAgICAgIGF0IHN1bi5yZWZsZWN0
+Lk5hdGl2ZU1ldGhvZEFjY2Vzc29ySW1wbC5pbnZva2UwKE5hdGl2ZSBNZXRob2QpDQogICAgICAg
+IGF0IHN1bi5yZWZsZWN0Lk5hdGl2ZU1ldGhvZEFjY2Vzc29ySW1wbC5pbnZva2UoVW5rbm93biBT
+b3VyY2UpDQogICAgICAgIGF0IHN1bi5yZWZsZWN0LkRlbGVnYXRpbmdNZXRob2RBY2Nlc3Nvcklt
+cGwuaW52b2tlKFVua25vd24gU291cmNlKQ0KICAgICAgICBhdCBqYXZhLmxhbmcucmVmbGVjdC5N
+ZXRob2QuaW52b2tlKFVua25vd24gU291cmNlKQ0KICAgICAgICBhdCBvcmcuZWNsaXBzZS5jb3Jl
+LmxhdW5jaGVyLk1haW4uYmFzaWNSdW4oTWFpbi5qYXZhOjI5MSkNCiAgICAgICAgYXQgb3JnLmVj
+bGlwc2UuY29yZS5sYXVuY2hlci5NYWluLnJ1bihNYWluLmphdmE6NzQ3KQ0KICAgICAgICBhdCBv
+cmcuZWNsaXBzZS5jb3JlLmxhdW5jaGVyLk1haW4ubWFpbihNYWluLmphdmE6NTgzKQ0KDQoiVk0g
+VGhyZWFkIiBwcmlvPTUgdGlkPTB4MDA3NDVCMjAgbmlkPTB4M2YgcnVubmFibGUNCg0KIlZNIFBl
+cmlvZGljIFRhc2sgVGhyZWFkIiBwcmlvPTEwIHRpZD0weDAwNzRBRjAwIG5pZD0weDhiIHdhaXRp
+bmcgb24gY29uZGl0aW9uDQoiU3VzcGVuZCBDaGVja2VyIFRocmVhZCIgcHJpbz0xMCB0aWQ9MHgw
+MDc0QTRFMCBuaWQ9MHhjNCBydW5uYWJsZQ0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg==
+</data>
+
+          </attachment>
+      
+
+    </bug>
+
+</bugzilla>

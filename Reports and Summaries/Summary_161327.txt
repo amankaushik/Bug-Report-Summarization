@@ -1,0 +1,40 @@
+I have a large web project from WTP (infact the size of the project when compressed is 72mb)
+That is the only project in my workspace.
+I choose to delete it completely from the workspace
+I find it takes like a minute to delete it and most of them time in progress view
+
+the delete operation stays at 0% and then after a minute jumps to 99%
+
+I even paused the product to see where it was executing it was here
+
+Thread [Worker-12] (Suspended)	
+	WinNTFileSystem.delete0(File) line: not available [native method]	
+	WinNTFileSystem(Win32FileSystem).delete(File) line: 504	
+	File.delete() line: 871 [local variables unavailable]	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 198	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.internalDelete(File, String, MultiStatus) line: 194	
+	LocalFile.delete(int, IProgressMonitor) line: 101	
+	DeleteVisitor.delete(UnifiedTreeNode, boolean, boolean) line: 65	
+	DeleteVisitor.visit(UnifiedTreeNode) line: 152	
+	UnifiedTree.accept(IUnifiedTreeVisitor, int) line: 93	
+	FileSystemResourceManager.delete(IResource, int, IProgressMonitor) line: 219	
+	ResourceTree.standardDeleteProject(IProject, int, IProgressMonitor) line: 826	
+	Project(Resource).unprotectedDelete(ResourceTree, int, IProgressMonitor) line: 1644	
+	Project(Resource).delete(int, IProgressMonitor) line: 695	
+	Project.delete(boolean, boolean, IProgressMonitor) line: 337	
+	DeleteResourceAction.delete(IResource, IProgressMonitor) line: 473	
+	DeleteResourceAction.delete(IResource[], IProgressMonitor) line: 447	
+	DeleteResourceAction.access$2(DeleteResourceAction, IResource[], IProgressMonitor) line: 436	
+	DeleteResourceAction$4.run(IProgressMonitor) line: 600	
+	Workspace.run(IWorkspaceRunnable, ISchedulingRule, int, IProgressMonitor) line: 1737	
+	DeleteResourceAction$3.run(IProgressMonitor) line: 596	
+	Worker.run() line: 58	
+
+Its probable the LocalFile class does not report progress granularly
+
+please contact me if you need test filesConfirmed.Fixed.closed

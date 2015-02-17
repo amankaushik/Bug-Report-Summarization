@@ -1,0 +1,12 @@
+Build Identifier: I20100313-1044
+
+When reopening Resource Filters property editor after adding several filters under either of top-level AND/OR/NOT group, none of children in such top-level group filter is shown while settings are actually persisted in .project.
+When you can't see filters under group filters, they can be easily overridden.Created attachment 163448
+Patch
+
+fixNow fixed on head.Verified on I20100406-1034
+Group filters are restored in the property page.
+Reproducible: Always
+
+Steps to Reproduce:
+1.

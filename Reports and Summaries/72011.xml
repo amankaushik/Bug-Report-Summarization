@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>72011</bug_id>
+          
+          <creation_ts>2004-08-16 06:17:00 -0400</creation_ts>
+          <short_desc>Predefined path variables</short_desc>
+          <delta_ts>2010-09-02 07:55:18 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>All</rep_platform>
+          <op_sys>All</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>enhancement</bug_severity>
+          <target_milestone>3.6</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Artyom Kuanbekov">artyom.kuanbekov</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          <cc>gregor.rosenauer</cc>
+    
+    <cc>john_arthorne</cc>
+    
+    <cc>Mikhail.Voronin</cc>
+    
+    <cc>oleg.smetanin</cc>
+    
+    <cc>philippe_mulet</cc>
+    
+    <cc>steven.valin</cc>
+    
+    <cc>Szymon.Brandys</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>331985</commentid>
+    <comment_count>0</comment_count>
+    <who name="Artyom Kuanbekov">artyom.kuanbekov</who>
+    <bug_when>2004-08-16 06:17:05 -0400</bug_when>
+    <thetext>It would be useful to have predefined path variables like ECLIPSE_HOME, 
+WORKSPACE. 
+
+External path variables are used when resources are linked into external file 
+system.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>438523</commentid>
+    <comment_count>1</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2005-04-26 16:22:06 -0400</bug_when>
+    <thetext>Suggest we add an #initialize method that checks to see if the ECLIPSE_HOME and
+WORKSPACE values are currently in the store and if they aren't, then we add
+them. Thoughts?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>438524</commentid>
+    <comment_count>2</comment_count>
+    <who name="Rafael Chaves">eclipse.rc</who>
+    <bug_when>2005-04-26 16:28:17 -0400</bug_when>
+    <thetext>I think they should always be set during startup and not saved accross sessions.
+They can always be easily computed from install/instance locations, and we want
+to behave if things are moved around.
+
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>438526</commentid>
+    <comment_count>3</comment_count>
+    <who name="Rafael Chaves">eclipse.rc</who>
+    <bug_when>2005-04-26 16:29:19 -0400</bug_when>
+    <thetext>If not saving them is a problem, just ignoring the existing values and always
+overwriting them should be ok.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>438543</commentid>
+    <comment_count>4</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2005-04-26 16:44:23 -0400</bug_when>
+    <thetext>I think its hard to do that (ignore and always over-write) in case the user has
+already set them or changes them over the course of a session.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>438547</commentid>
+    <comment_count>5</comment_count>
+    <who name="Rafael Chaves">eclipse.rc</who>
+    <bug_when>2005-04-26 16:50:20 -0400</bug_when>
+    <thetext>I guess we need then a way to distinguish between user and pre-defined
+variables. Pre-defined variables should not be changeable. The easiest way of
+doing that would be to change PathVariableManager to do the right thing for
+get()/set()/getVariableNames() w.r.t. those two variables. They would not need
+to be stored in the map of variables (since they are always set, and can never
+be changed).
+
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>441181</commentid>
+    <comment_count>6</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2005-04-29 15:51:53 -0400</bug_when>
+    <thetext>Consider for 3.2.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>442024</commentid>
+    <comment_count>7</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2005-05-02 14:38:41 -0400</bug_when>
+    <thetext>*** Bug 32636 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>655164</commentid>
+    <comment_count>8</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-03-31 13:31:22 -0500</bug_when>
+    <thetext>*** Bug 96880 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1184581</commentid>
+    <comment_count>9</comment_count>
+    <who name="Gregor Rosenauer">gregor.rosenauer</who>
+    <bug_when>2008-03-26 09:44:32 -0400</bug_when>
+    <thetext>I think this has been implemented since 3.2 and could be closed. At least ECLIPSE_HOME is set in the Java classpath in Preferences/Java/Build Path.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1808591</commentid>
+    <comment_count>10</comment_count>
+    <who name="Szymon Brandys">Szymon.Brandys</who>
+    <bug_when>2010-09-02 07:41:27 -0400</bug_when>
+    <thetext>Fixed in 3.6 by introducing Dynamic Path Variables.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

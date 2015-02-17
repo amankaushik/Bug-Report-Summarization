@@ -1,0 +1,38 @@
+Build ID: I20090313-0100
+
+Steps To Reproduce:
+Use the Bidi (Arabic/Hebrew) enabled version of Windows.
+Result: Entries in "Path" column of list view on "Swithch To Editor" page shown distorted due
+to its right-to-left text orientation (inherited from top level frame).
+More information:Tod, I thought the paths were to be right justified and the BiDi control characters inserted by TextProcessor were supposed to only put some parts of the path (like .java) in LTR
+
+PW
+TextProcessor only runs with a -nl that is bidirectional so you won't get it with -nl en.
+If they are something else (like a zip or archive) I think they need to be marked as such (or simply as binary streams) for us to see them.
+The issue of complex expressions is also ought to be raised but we stick to lenient approach as regards to editable fields (since the Text Processor only can help for correct representation of strings of complex expression type but
+you have no means(tooling) for tracking the dynamically changing text)Is the problem here the paths are not being run through TextProcessor?
+PWCreated attachment 133751
+no text processor 
+
+Well, this looks worse without the text processor.
+PW
+(In reply to comment #4)
+> The problem has nothing to do with Text Processor but rather with incorrect
+
+As it turned out, this *was* due to a missing TextProcessor call (that seems like it has to do with TextProcessor to me)
+
+PW
+Yes, with the 133750 attachment it looks perfectly good, apparently Text Processor by itself does tackle the problem originated from wrong text orientation.But still we need the left justification as wellIndeed we had 2 problems:
+
+1.
+Complex expressions in Name / Path column - applying TextProcessor on values in both columns solved the problem (the attachment in comment #9 shows paths and file names correctly).
+(In reply to comment #16)
+> Indeed we had 2 problems:
+> 
+
+Hi Tomer,
+
+As mentioned in the other bug, bugs about some fields/text boxes not assuming the RTL orientation (like a Path or the Ant editor example) should be marked as enhancement requests and collected as blocking another bug that captures your guidelines about when a field should be strongly LTR so much so as to override the parent orientation.
+Created attachment 133263
+Snapshot illustrating the problem.
+1.

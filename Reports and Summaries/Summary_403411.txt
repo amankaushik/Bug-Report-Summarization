@@ -1,0 +1,5 @@
+Hi,
+
+I am using Fedora 18 and updated the eclipse.
+So when I start the eclipse it shows the launcher and after that a very small blank window appears.
+Following is the stack trace.

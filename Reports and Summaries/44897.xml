@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>44897</bug_id>
+          
+          <creation_ts>2003-10-15 09:46:00 -0400</creation_ts>
+          <short_desc>Eclipse 3.0 M4 explodes on startup.</short_desc>
+          <delta_ts>2003-10-15 11:38:11 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>critical</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Keith Sader">keith.d.sader</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>194743</commentid>
+    <comment_count>0</comment_count>
+    <who name="Keith Sader">keith.d.sader</who>
+    <bug_when>2003-10-15 09:46:13 -0400</bug_when>
+    <thetext>After downloading, and md5 checking(passed) the lastest .zip file, launching the
+eclipse.exe file yeilds a dialog with the following message:
+
+Title: Eclipse
+JVM terminated.  Exit code = 1
+C:\Windows\system32\javaw.exe -cp C:\eclipse\startup.jar
+org.eclipse.core.launcher.Main -os win32 -ws win32 -arch x86 -showsplash
+C:\eclipse\eclipse.exe -showsplash 600
+
+running the stated command on the command line using java.exe yeilds the following:
+Exception in thread &quot;main&quot; java.lang.IllegalAccessError: try to access method
+java.io.FileOutputStream.&lt;init&gt;(Ljava/io/File;Z)V from
+ class org.eclipse.core.launcher.Main
+        at org.eclipse.core.launcher.Main.isAlreadyRunning(Main.java:1502)
+        at org.eclipse.core.launcher.Main.main(Main.java:595)</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>194782</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-15 10:28:50 -0400</bug_when>
+    <thetext>You need at least a 1.4 Java VM to run 3.0 M4 or greater.  What is your VM version?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>194794</commentid>
+    <comment_count>2</comment_count>
+    <who name="Keith Sader">keith.d.sader</who>
+    <bug_when>2003-10-15 10:36:05 -0400</bug_when>
+    <thetext>That would be it.  I'm running 1.3.1_xx.  Did I miss a relase note somewhere?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>194811</commentid>
+    <comment_count>3</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2003-10-15 11:07:27 -0400</bug_when>
+    <thetext>We usually don't get around to updating release notes until closer to the actual
+release (R3.0 in this case is six months off).  We have another bug report for
+giving the user a better error message when they are using an invalid VM version
+(bug 44814).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>194826</commentid>
+    <comment_count>4</comment_count>
+    <who name="Keith Sader">keith.d.sader</who>
+    <bug_when>2003-10-15 11:38:11 -0400</bug_when>
+    <thetext>Ok, I'll close this bug then.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

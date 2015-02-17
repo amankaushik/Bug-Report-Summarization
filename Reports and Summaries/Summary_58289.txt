@@ -1,0 +1,5 @@
+We should add the following improvements to the ProgressMonitorJobsDialog
+
+1) Open progress viewer
+2) use a better icon
+3) Switch the name to Waiting rather ta\han blockedThe details pane now opens by default.

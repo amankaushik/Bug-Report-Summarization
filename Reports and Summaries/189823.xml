@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>189823</bug_id>
+          
+          <creation_ts>2007-05-29 23:20:00 -0400</creation_ts>
+          <short_desc>[WorkbenchLauncher] -showlocation does not work with 3.3RC2</short_desc>
+          <delta_ts>2007-09-06 08:53:58 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>3.3</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Beth Tibbitts">beth</reporter>
+          <assigned_to name="Kim Horne">eclipse</assigned_to>
+          
+          
+          <votes>1</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>978562</commentid>
+    <comment_count>0</comment_count>
+    <who name="Beth Tibbitts">beth</who>
+    <bug_when>2007-05-29 23:20:38 -0400</bug_when>
+    <thetext>launching eclipse with the -showlocation arg to show the location of the workspace in the title bar no longer works.  It worked in M7.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>979386</commentid>
+    <comment_count>1</comment_count>
+    <who name="Beth Tibbitts">beth</who>
+    <bug_when>2007-05-30 11:13:52 -0400</bug_when>
+    <thetext>It does work if you add the -showlocation arg to the eclipse.ini file,
+but it is ignored as a command line argument.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1049070</commentid>
+    <comment_count>2</comment_count>
+    <who name="Beth Tibbitts">beth</who>
+    <bug_when>2007-08-21 14:53:40 -0400</bug_when>
+    <thetext>This seems to be working now.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1058728</commentid>
+    <comment_count>3</comment_count>
+    <who name="Kim Horne">eclipse</who>
+    <bug_when>2007-09-06 08:53:58 -0400</bug_when>
+    <thetext>Closing.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

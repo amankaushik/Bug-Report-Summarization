@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>271910</bug_id>
+          
+          <creation_ts>2009-04-10 13:31:00 -0400</creation_ts>
+          <short_desc>Renaming a project causes the path variables to be changed unexpectedly</short_desc>
+          <delta_ts>2010-03-03 06:04:14 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.6</version>
+          <rep_platform>All</rep_platform>
+          <op_sys>Mac OS X - Carbon (unsup.)</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.6 M6</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Serge Beauchamp">serge</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>1470578</commentid>
+    <comment_count>0</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2009-04-10 13:31:14 -0400</bug_when>
+    <thetext>Renaming a project causes the path variables to be changed unexpectedly (from mixed-case, to upper-case, and with numerical suffixes).
+
+Serge knows how to reproduce this, and will fix it.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1685960</commentid>
+    <comment_count>1</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-03-03 06:04:14 -0500</bug_when>
+    <thetext>This was fixed on cvs head, the e4 resource source base is deprecated.</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

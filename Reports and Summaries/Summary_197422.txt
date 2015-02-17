@@ -1,0 +1,8 @@
+Build ID: I20070621-1340
+
+Steps To Reproduce:
+1.
+Open File > New > File
+2.
+Click Advanced, select the checkbox and select the parent project.
+Click Variables... > New and create a link variable pointing to some directory.

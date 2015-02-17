@@ -1,0 +1,3 @@
+launching eclipse with the -showlocation arg to show the location of the workspace in the title bar no longer works.
+It worked in M7.It does work if you add the -showlocation arg to the eclipse.ini file,
+but it is ignored as a command line argument.This seems to be working now.Closing.

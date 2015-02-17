@@ -1,0 +1,2 @@
+Renaming a project causes the path variables to be changed unexpectedly (from mixed-case, to upper-case, and with numerical suffixes).
+Serge knows how to reproduce this, and will fix it.This was fixed on cvs head, the e4 resource source base is deprecated.

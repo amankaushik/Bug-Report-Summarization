@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>14255</bug_id>
+          
+          <creation_ts>2002-04-19 15:03:00 -0400</creation_ts>
+          <short_desc>DBCS: Add from Local History incorrect for DBCS project name</short_desc>
+          <delta_ts>2002-07-01 21:23:44 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>2.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows 2000</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P1</priority>
+          <bug_severity>critical</bug_severity>
+          <target_milestone>---</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Masayuki Fuse">fuse</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>44769</commentid>
+    <comment_count>0</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-19 15:03:48 -0400</bug_when>
+    <thetext>M5, WindowsXP Japanese
+
+STEPS
+1) create project with DBCS
+2) create and edit some files under the project
+3) right click at the project and select the &quot;Add from Local History...&quot;
+
+Problems
+- Upper left pane displays bogus for the DBCS project name
+- If I click and select the one in the Available files, nothing happnes in the 
+right upper pane and bottom pane.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>44789</commentid>
+    <comment_count>1</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-19 15:31:07 -0400</bug_when>
+    <thetext>This case DBCS project name was
+\uff33\uff37\uff34\u30b5\u30f3\u30d7\u30eb in Unicode representation</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45104</commentid>
+    <comment_count>2</comment_count>
+    <who name="Nick Edgar">nick_edgar</who>
+    <bug_when>2002-04-22 10:55:51 -0400</bug_when>
+    <thetext>Please investigate and make recommendations to Compare.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45110</commentid>
+    <comment_count>3</comment_count>
+    <who name="Nick Edgar">nick_edgar</who>
+    <bug_when>2002-04-22 11:02:13 -0400</bug_when>
+    <thetext>Please try on JDK 1.4.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45138</commentid>
+    <comment_count>4</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-22 11:25:58 -0400</bug_when>
+    <thetext>I've confirmed that it also occurred with Sun java 1.4.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45155</commentid>
+    <comment_count>5</comment_count>
+    <who name="Tod Creasey">Tod_Creasey</who>
+    <bug_when>2002-04-22 11:55:15 -0400</bug_when>
+    <thetext>Tried this using the Husrsley 1.4 VM. There are two problems
+
+
+1) The name of the project shows up correctly in the dialog but the path in 
+the list has garbage characters
+2) When you select an entry the resource history does not show up.
+
+Moving to Core</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>46687</commentid>
+    <comment_count>6</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-25 15:36:07 -0400</bug_when>
+    <thetext>prioritised must fix for 2.0 release</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>46753</commentid>
+    <comment_count>7</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2002-04-25 17:26:19 -0400</bug_when>
+    <thetext>Fixed.  The problem was in HistoryStoreEntry.getPath(). Paths are encoded in the 
+entries using UTF8, but it was converting back to a string using the default 
+encoding.  The fix was to convert back to UTF8 using our conversion helper 
+class:
+
+return new Path(Convert.fromUTF8(pathBytes));
+
+Released.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>46893</commentid>
+    <comment_count>8</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-26 09:52:07 -0400</bug_when>
+    <thetext>verified with 20020426</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>46901</commentid>
+    <comment_count>9</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-04-26 09:57:58 -0400</bug_when>
+    <thetext>*** Bug 14257 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>78441</commentid>
+    <comment_count>10</comment_count>
+    <who name="Masayuki Fuse">fuse</who>
+    <bug_when>2002-07-01 21:23:44 -0400</bug_when>
+    <thetext>verified</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>297303</bug_id>
+          
+          <creation_ts>2009-12-09 03:44:00 -0500</creation_ts>
+          <short_desc>Resource filters cannot be edited for linked packages</short_desc>
+          <delta_ts>2011-05-06 04:07:14 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>3.6</version>
+          <rep_platform>All</rep_platform>
+          <op_sys>All</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.6 RC1</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Markus Keller">markus_keller</reporter>
+          <assigned_to name="Serge Beauchamp">serge</assigned_to>
+          <cc>bokowski</cc>
+    
+    <cc>daniel_megert</cc>
+    
+    <cc>john_arthorne</cc>
+    
+    <cc>serge</cc>
+    
+    <cc>Szymon.Brandys</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      <flag id="29327" name="review" setter="markus_keller" status="+" type_id="1"/>
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>1641980</commentid>
+    <comment_count>0</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2009-12-09 03:44:36 -0500</bug_when>
+    <thetext>I20091207-1800
+
+Resource filters cannot be edited for linked packages (properties page shows only up for folder, not for packages).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1723330</commentid>
+    <comment_count>1</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-04-28 10:26:31 -0400</bug_when>
+    <thetext>This is a problem with adapters not being registered/implemented for the same types (IResource/IContainer/IFolder/...).
+
+Need to look at this in RC1 and fix together with Platform UI.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735071</commentid>
+    <comment_count>2</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-05-12 11:10:02 -0400</bug_when>
+    <thetext>OK, multiple problems:
+
+1. org.eclipse.ui.ide/plugin.xml contributes propertyPage &quot;org.eclipse.ui.propertypages.resource.filters&quot; with:
+         &lt;enabledWhen&gt;
+            &lt;or&gt;
+            	&lt;adapt type=&quot;org.eclipse.core.resources.IProject&quot;/&gt;
+            	&lt;adapt type=&quot;org.eclipse.core.resources.IFolder&quot;/&gt;
+            &lt;/or&gt;
+         &lt;/enabledWhen&gt;
+
+2. org.eclipse.jdt.ui's JavaElementAdapterFactory only contributes an adapter from IJavaElement to IResource, but not to IFolder nor to IContainer (the project case is handled with a separate adapter from IJavaProject to IProject).
+
+3. The ResourceFilterPage class gets an adapter to IContainer.class, and not to IFolder.class as would be expected from the enablement expression.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735181</commentid>
+    <comment_count>3</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-05-12 11:54:39 -0400</bug_when>
+    <thetext>Solving 2. (i.e. adding more adaptees for IJavaElement) can have unwanted consequences on the whole platform, so we shouldn't risk this for RC1.
+
+Up to now, we never had a need for adapting to IContainer or IFolder, so I think the best way to fix this would be to change the resource filter page, such that it only adapts to IResource.
+
+I'll attach a patch that implement this in o.e.ui.ide. Serge, could you please review?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735183</commentid>
+    <comment_count>4</comment_count>
+      <attachid>168178</attachid>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-05-12 11:55:00 -0400</bug_when>
+    <thetext>Created attachment 168178
+Fix</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735580</commentid>
+    <comment_count>5</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-05-12 15:41:57 -0400</bug_when>
+    <thetext>Sorry, I'm not sure if Serge was involved in this at all.
+
++1 for RC1 anyone? You can also release the patch (it's getting late for me...).</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735621</commentid>
+    <comment_count>6</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-05-12 16:13:50 -0400</bug_when>
+    <thetext>Reviewed - it looks good.  Thanks</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735624</commentid>
+    <comment_count>7</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-05-12 16:15:47 -0400</bug_when>
+    <thetext>(In reply to comment #5)
+&gt; Sorry, I'm not sure if Serge was involved in this at all.
+&gt; 
+&gt; +1 for RC1 anyone? You can also release the patch (it's getting late for
+&gt; me...).
+
+Fair enough, I'll commit the patch - now fixed on head.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735625</commentid>
+    <comment_count>8</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-05-12 16:16:45 -0400</bug_when>
+    <thetext>hum, can you add your +1 ? I guess mine would be strange since I committed it.  Thanks</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1735781</commentid>
+    <comment_count>9</comment_count>
+    <who name="Markus Keller">markus_keller</who>
+    <bug_when>2010-05-12 17:46:40 -0400</bug_when>
+    <thetext>Thanks, Serge.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1924997</commentid>
+    <comment_count>10</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2011-05-06 03:38:50 -0400</bug_when>
+    <thetext>This bug inadvertently disabled the property page for regular folders and containers.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1925012</commentid>
+    <comment_count>11</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2011-05-06 04:07:14 -0400</bug_when>
+    <thetext>Never mind, something else caused this bug to fail in 3.7M6, I'll open another bug to track the failure case.</thetext>
+  </long_desc>
+      
+          <attachment isobsolete="0" ispatch="1" isprivate="0">
+            <attachid>168178</attachid>
+            <date>2010-05-12 11:55:00 -0400</date>
+            <delta_ts>2010-05-12 11:55:00 -0400</delta_ts>
+            <desc>Fix</desc>
+            <filename>297303_patch.txt</filename>
+            <type>text/plain</type>
+            <size>2920</size>
+            <attacher name="Markus Keller">markus_keller</attacher>
+            
+              <data encoding="base64">IyMjIEVjbGlwc2UgV29ya3NwYWNlIFBhdGNoIDEuMA0KI1Agb3JnLmVjbGlwc2UudWkuaWRlDQpJ
+bmRleDogcGx1Z2luLnhtbA0KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KUkNTIGZpbGU6IC9jdnNyb290L2VjbGlwc2Uv
+b3JnLmVjbGlwc2UudWkuaWRlL3BsdWdpbi54bWwsdg0KcmV0cmlldmluZyByZXZpc2lvbiAxLjMw
+Mw0KZGlmZiAtdSAtcjEuMzAzIHBsdWdpbi54bWwNCi0tLSBwbHVnaW4ueG1sCTE0IEFwciAyMDEw
+IDE0OjMyOjA1IC0wMDAwCTEuMzAzDQorKysgcGx1Z2luLnhtbAkxMiBNYXkgMjAxMCAxNTo0Mzo0
+NyAtMDAwMA0KQEAgLTcwMCwxMCArNzAwLDkgQEANCiAgICAgICAgICAgICBpZD0ib3JnLmVjbGlw
+c2UudWkucHJvcGVydHlwYWdlcy5yZXNvdXJjZS5maWx0ZXJzIg0KICAgICAgICAgICAgIG5hbWU9
+IiVQcm9wZXJ0eVBhZ2VzLnJlc291cmNlLmZpbHRlcnMiPg0KICAgICAgICAgIDxlbmFibGVkV2hl
+bj4NCi0gICAgICAgICAgICA8b3I+DQotICAgICAgICAgICAgCTxhZGFwdCB0eXBlPSJvcmcuZWNs
+aXBzZS5jb3JlLnJlc291cmNlcy5JUHJvamVjdCIvPg0KLSAgICAgICAgICAgCQk8YWRhcHQgdHlw
+ZT0ib3JnLmVjbGlwc2UuY29yZS5yZXNvdXJjZXMuSUZvbGRlciIvPg0KLSAgICAgICAgICAgCTwv
+b3I+DQorICAgICAgICAgICAgPGFkYXB0IHR5cGU9Im9yZy5lY2xpcHNlLmNvcmUucmVzb3VyY2Vz
+LklSZXNvdXJjZSI+DQorICAgICAgICAgICAgCTxpbnN0YW5jZW9mIHZhbHVlPSJvcmcuZWNsaXBz
+ZS5jb3JlLnJlc291cmNlcy5JQ29udGFpbmVyIi8+DQorICAgICAgICAgICAgPC9hZGFwdD4NCiAg
+ICAgICAgICA8L2VuYWJsZWRXaGVuPg0KICAgICAgIDwvcGFnZT4NCiAgICAgICA8cGFnZQ0KSW5k
+ZXg6IHNyYy9vcmcvZWNsaXBzZS91aS9pbnRlcm5hbC9pZGUvZGlhbG9ncy9SZXNvdXJjZUZpbHRl
+clBhZ2UuamF2YQ0KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PQ0KUkNTIGZpbGU6IC9jdnNyb290L2VjbGlwc2Uvb3JnLmVj
+bGlwc2UudWkuaWRlL3NyYy9vcmcvZWNsaXBzZS91aS9pbnRlcm5hbC9pZGUvZGlhbG9ncy9SZXNv
+dXJjZUZpbHRlclBhZ2UuamF2YSx2DQpyZXRyaWV2aW5nIHJldmlzaW9uIDEuMg0KZGlmZiAtdSAt
+cjEuMiBSZXNvdXJjZUZpbHRlclBhZ2UuamF2YQ0KLS0tIHNyYy9vcmcvZWNsaXBzZS91aS9pbnRl
+cm5hbC9pZGUvZGlhbG9ncy9SZXNvdXJjZUZpbHRlclBhZ2UuamF2YQkxNSBPY3QgMjAwOSAwODox
+MjoxNSAtMDAwMAkxLjINCisrKyBzcmMvb3JnL2VjbGlwc2UvdWkvaW50ZXJuYWwvaWRlL2RpYWxv
+Z3MvUmVzb3VyY2VGaWx0ZXJQYWdlLmphdmEJMTIgTWF5IDIwMTAgMTU6NDM6NDcgLTAwMDANCkBA
+IC0xLDUgKzEsNSBAQA0KIC8qKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqDQotICogQ29weXJpZ2h0IChj
+KSAyMDA4LCAyMDA5IEZyZWVzY2FsZSBTZW1pY29uZHVjdG9yIGFuZCBvdGhlcnMuDQorICogQ29w
+eXJpZ2h0IChjKSAyMDA4LCAyMDEwIEZyZWVzY2FsZSBTZW1pY29uZHVjdG9yIGFuZCBvdGhlcnMu
+DQogICogQWxsIHJpZ2h0cyByZXNlcnZlZC4gVGhpcyBwcm9ncmFtIGFuZCB0aGUgYWNjb21wYW55
+aW5nIG1hdGVyaWFscw0KICAqIGFyZSBtYWRlIGF2YWlsYWJsZSB1bmRlciB0aGUgdGVybXMgb2Yg
+dGhlIEVjbGlwc2UgUHVibGljIExpY2Vuc2UgdjEuMA0KICAqIHdoaWNoIGFjY29tcGFuaWVzIHRo
+aXMgZGlzdHJpYnV0aW9uLCBhbmQgaXMgYXZhaWxhYmxlIGF0DQpAQCAtMTIsNyArMTIsNyBAQA0K
+IHBhY2thZ2Ugb3JnLmVjbGlwc2UudWkuaW50ZXJuYWwuaWRlLmRpYWxvZ3M7DQogDQogaW1wb3J0
+IG9yZy5lY2xpcHNlLmNvcmUucmVzb3VyY2VzLklDb250YWluZXI7DQotaW1wb3J0IG9yZy5lY2xp
+cHNlLmNvcmUucmVzb3VyY2VzLklQcm9qZWN0Ow0KK2ltcG9ydCBvcmcuZWNsaXBzZS5jb3JlLnJl
+c291cmNlcy5JUmVzb3VyY2U7DQogaW1wb3J0IG9yZy5lY2xpcHNlLnN3dC53aWRnZXRzLkNvbXBv
+c2l0ZTsNCiBpbXBvcnQgb3JnLmVjbGlwc2Uuc3d0LndpZGdldHMuQ29udHJvbDsNCiBpbXBvcnQg
+b3JnLmVjbGlwc2UudWkuUGxhdGZvcm1VSTsNCkBAIC0zOSwxNSArMzksMTEgQEANCiAJCVBsYXRm
+b3JtVUkuZ2V0V29ya2JlbmNoKCkuZ2V0SGVscFN5c3RlbSgpLnNldEhlbHAoZ2V0Q29udHJvbCgp
+LA0KIAkJCQlJSURFSGVscENvbnRleHRJZHMuUkVTT1VSQ0VfRklMVEVSX1BST1BFUlRZX1BBR0Up
+Ow0KIA0KLQkJSUNvbnRhaW5lciByZXNvdXJjZSA9IChJQ29udGFpbmVyKSBnZXRFbGVtZW50KCku
+Z2V0QWRhcHRlcigNCi0JCQkJSUNvbnRhaW5lci5jbGFzcyk7DQotCQlpZiAocmVzb3VyY2UgPT0g
+bnVsbCkgew0KLQkJCUlQcm9qZWN0IHByb2plY3QgPSAoSVByb2plY3QpIGdldEVsZW1lbnQoKS5n
+ZXRBZGFwdGVyKA0KLQkJCQkJSVByb2plY3QuY2xhc3MpOw0KLQkJCWlmIChwcm9qZWN0ICE9IG51
+bGwpDQotCQkJCXJlc291cmNlID0gcHJvamVjdDsNCi0JCX0NCi0JCWdyb3VwV2lkZ2V0LnNldENv
+bnRhaW5lcihyZXNvdXJjZSk7DQorCQlJUmVzb3VyY2UgcmVzb3VyY2UgPSAoSVJlc291cmNlKSBn
+ZXRFbGVtZW50KCkuZ2V0QWRhcHRlcigNCisJCQkJSVJlc291cmNlLmNsYXNzKTsNCisJCUlDb250
+YWluZXIgY29udGFpbmVyID0gcmVzb3VyY2UgaW5zdGFuY2VvZiBJQ29udGFpbmVyID8gKElDb250
+YWluZXIpIHJlc291cmNlDQorCQkJCTogbnVsbDsNCisJCWdyb3VwV2lkZ2V0LnNldENvbnRhaW5l
+cihjb250YWluZXIpOw0KIA0KIAkJcmV0dXJuIGdyb3VwV2lkZ2V0LmNyZWF0ZUNvbnRlbnRzKHBh
+cmVudCk7DQogCX0NCg==
+</data>
+
+          </attachment>
+      
+
+    </bug>
+
+</bugzilla>

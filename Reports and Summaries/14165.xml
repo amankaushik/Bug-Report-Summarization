@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>14165</bug_id>
+          
+          <creation_ts>2002-04-18 16:52:00 -0400</creation_ts>
+          <short_desc>Migration of closed project can hide/lose data</short_desc>
+          <delta_ts>2004-09-16 12:05:00 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>2.0</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows 2000</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P1</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>2.0 M6</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Carl Anderson">ccc</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          <cc>dj_houghton</cc>
+    
+    <cc>paulacox</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>44402</commentid>
+    <comment_count>0</comment_count>
+    <who name="Carl Anderson">ccc</who>
+    <bug_when>2002-04-18 16:52:48 -0400</bug_when>
+    <thetext>Using Eclipse V1, create a Java project outside of the default workspace.
+Close the Java project, and exit Eclipse V1.
+
+Bring up Eclipse V2 (M4 driver or later), pointing to the workspace above.  You 
+will see the closed Java project.  Exit Eclipse V2.
+
+Upon exiting Eclipse V2, a directory with the same name as the project will be 
+created in the workspace (remember that the project's correct location is 
+outside of the default workspace).  Within the directory is the .project file 
+for that project.
+
+If you bring up Eclipse V2, and open the project, all you will see is 
+the .project file.  Your data is no longer accessible.  The project location no 
+longer points to the directory outside of the workspace, but points to the 
+workspace.
+
+Further note that opening the project the first time that Eclipse V2 is brought 
+up properly creates the .project file in the correct location.
+
+This problem occurs on any sort of project that would generate a .project 
+file.  It does *NOT* occur on simple Projects.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>44408</commentid>
+    <comment_count>1</comment_count>
+    <who name="DJ Houghton">dj_houghton</who>
+    <bug_when>2002-04-18 16:59:14 -0400</bug_when>
+    <thetext>I can't see why this would happen with Java projects and not a Simple project 
+since Core is ignorant of their differences.
+
+Which build are you using?
+
+John, please investigate to see if this problem is a duplicate of Bug 12507.
+Thanks.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>44453</commentid>
+    <comment_count>2</comment_count>
+    <who name="Carl Anderson">ccc</who>
+    <bug_when>2002-04-18 18:21:22 -0400</bug_when>
+    <thetext>I can recreate this using the Eclipse M4 (0321) build or the M5 (0416) build.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>44824</commentid>
+    <comment_count>3</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2002-04-19 16:21:57 -0400</bug_when>
+    <thetext>Could not reproduce in build 20020416 (M5). Here are my steps:
+
+1) Open a workspace at d:\temp in Eclipse R1.0
+2) Create a java project with content at c:\temp\JavaProject
+3) Shutdown eclipse
+4) Reopen same workspace with Eclipse 20020416
+
+At this point the java project is open, its content is intact.
+
+5) Shutdown eclipse
+
+Nothing gets created in the default content area.  The new &quot;.project&quot; file is 
+correctly created in the java project's content area in c:\temp\JavaProject.
+
+Please provide steps or clarification if you can still reproduce with Eclipse 
+builds 20020416 or greater.
+</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>44860</commentid>
+    <comment_count>4</comment_count>
+    <who name="Carl Anderson">ccc</who>
+    <bug_when>2002-04-19 17:47:47 -0400</bug_when>
+    <thetext>You missed step 2a. Close the java project (in Eclipse V1)
+
+As I said before, I can reproduce this with 20020416</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45569</commentid>
+    <comment_count>5</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2002-04-23 09:57:24 -0400</bug_when>
+    <thetext>You're right, I was missing that critical 2a) step.  I can now reproduce the 
+problem.  Thanks for the clarification.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>45724</commentid>
+    <comment_count>6</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2002-04-23 13:18:46 -0400</bug_when>
+    <thetext>Fixed.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>342777</commentid>
+    <comment_count>7</comment_count>
+    <who name="Carl Anderson">ccc</who>
+    <bug_when>2004-09-16 12:05:00 -0400</bug_when>
+    <thetext>This was fixed a *LONG* time ago.  Thanks!!!</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>

@@ -1,0 +1,24 @@
+To enable the
+seamless migration, we sometimes have to add natures and/or builders which are
+not actually valid in the current version (for backward compatibility, we add
+natures so that previous versions of the product will recognize them
+appropriately).
+We tolerate the presence of non-existent natures, but we
+don't allow you to configure new natures that are missing (our contract requires
+us to invoke IProjectNature.configure(), which we cannot do if the nature is
+missing).
+We have built a generic migration engine to ensure N-1 | N-2 compatibility with
+previous versions of our product which is built on Eclipse.
+When doing so we are seeing exceptions.
+Is there a way to set
+the nature and explicitly silence the error?
+If not, we need this capability for
+the final release of Eclipse 3.0.You see exceptions in the new version of the product or the old one?
+What kinds
+of exceptions are you seeing?
+The only thing that should happen when a builder
+is missing is an informational message in the log file once per session
+mentioned that a missing builder was encountered and skipped.Closing - not enough info.
+Please reopen with more details.We are using a 3.0 Integration Build from early March (03/04).
+We get the following exception when setting the Project Description using a
+nature ID that does not have a valid nature defined.

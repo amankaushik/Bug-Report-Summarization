@@ -1,0 +1,38 @@
+Create a project and then enable project-level JDT preferences to cause the prefs file to be written.
+Close Eclipse and make the whole project directory read-only.
+The project imports and the build kicks off.
+Eventually, a dialog pops up:
+
+"Problems occurred while refreshing local changes.
+"
+"Exception occurred while saving project preferences: /myproj/.settings/org.eclipse.jdt.core.prefs"Import as well as preferences loading/writing is platformNote that this has only been seen with org.eclipse.jdt.core.prefs file.
+I'm passing this on to the JDT group for the first cut based on the input that this seems localized to the JDT preference store...
+
+NOTE: I'm just starting to take over the triage so don't be too harsh if you think I've mis-directed this; just punt it back with appropriate comments...;-)
+As said, Import as well as preferences loading/writing is platform.
+It's probably just us in JDT which use project specific settings.
+BTW, Konstantin, what exactly should be the expected behaviour with the read-only preferences?I should be prompted to make the file writable.
+Make sure to gracefully handle the case where the user selects "No" (check the returned IStatus).
+The Resource/SCM layer provides a default validateEdit handler if no SCM is configured for the project.
+If no Shell is passed it, it simply fails.
+The Project preferences mechanism does call validateEditor (ProjectPreferences#save).
+The problem is that we don't have access to a Shell at this level.
+Michael, perhaps DefaultUIFileModificationValidator could search for a shell via IWorkbench.getActiveWorkbenchWindow() if the provided context is null?The problem is that the spec for validateEdit states that the lack of a shell means that no prompt will occur.
+If we look for a shell and prompt, we would break the spec.
+Firstly, the JDT preferences are being written on a build.
+It would be useful to know why the JDT builder is modifying the preferences.
+Secondly, the validateEdit mechanism is really used for shared projects.
+I would be curious to know why you are making a non-shared project read-only?
+In comment 5, the Peforce repository provider is mentioned.
+Based on what I am seeing with writable projects, the contents of the file do not actually change, so there just might be an optimization check missing.
+The particular error happens too fast after the import (assuming auto-build is enabled) to allow the user the chance to configure the SCM options for the project.
+The Perforce SCM plugins are very poor in quality, so what a lot of people who work with Perforce in Eclipse end up doing is letting Eclipse treat the project is as simply read-only.
+After the necessary changes, you run an external tool that checks for changes and builds the delta to send to the repository.
+Support of this in project metadata / project properties is spotty.
+When a project is first created we start a background refresh job to discover the project contents.
+It's this job that is causing the file to be written.
+However, it looks like the file is being written in error.
+DJ, it looks like reading the project preference file causes the file to be rewritten.
+Here is the stack trace:
+
+org.osgi.service.prefs.BackingStoreException: Exception occurred while saving project preferences: /jtest2/.settings/org.eclipse.jdt.core.prefs.

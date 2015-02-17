@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>152493</bug_id>
+          
+          <creation_ts>2006-08-01 15:06:00 -0400</creation_ts>
+          <short_desc>Nature instances copied on project copy and paste</short_desc>
+          <delta_ts>2006-09-25 15:46:16 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.2</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>Windows XP</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P2</priority>
+          <bug_severity>critical</bug_severity>
+          <target_milestone>3.2.1</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="John Lanuti">jlanuti</reporter>
+          <assigned_to name="John Arthorne">john_arthorne</assigned_to>
+          <cc>cbridgha</cc>
+    
+    <cc>danberg</cc>
+    
+    <cc>kleind</cc>
+    
+    <cc>mpcarl</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>760139</commentid>
+    <comment_count>0</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-01 15:06:38 -0400</bug_when>
+    <thetext>Select an EJB project in the Project Explorer (probably any module project will
+do)
+Copy it
+Paste it back into the view 
+
+
+*** ERROR ***: Fri Jul 28 09:41:57 EDT 2006    java.lang.NullPointerException
+        at
+org.eclipse.wst.common.internal.emf.resource.IDTranslator.setMOFValue(IDTranslator.java:45)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOFFeature(EMF2DOMAdapterImpl.java:1362)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOFFeature(EMF2DOMAdapterImpl.java:1718)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOF(EMF2DOMAdapterImpl.java:892)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOF(EMF2DOMAdapterImpl.java:872)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOFMultiFeature(EMF2DOMAdapterImpl.java:420)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOFRootFeature(EMF2DOMAdapterImpl.java:913)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.primUpdateMOF(EMF2DOMAdapterImpl.java:888)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMAdapterImpl.updateMOF(EMF2DOMAdapterImpl.java:872)
+        at
+org.eclipse.wst.common.internal.emf.resource.EMF2DOMRenderer.doLoad(EMF2DOMRenderer.java:62)
+        at
+org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl.basicDoLoad(TranslatorResourceImpl.java:142)
+        at
+org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResourceImpl.doLoad(CompatibilityXMIResourceImpl.java:173)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1089)
+        at
+org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl.load(TranslatorResourceImpl.java:391)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoad(ResourceSetImpl.java:249)
+        at
+org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.demandLoad(ProjectResourceSetImpl.java:83)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.demandLoadHelper(ResourceSetImpl.java:264)
+        at
+org.eclipse.emf.ecore.resource.impl.ResourceSetImpl.getResource(ResourceSetImpl.java:390)
+        at
+org.eclipse.jem.internal.util.emf.workbench.ProjectResourceSetImpl.getResource(ProjectResourceSetImpl.java:262)
+        at
+org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper.getOrCreateResource(WorkbenchResourceHelper.java:384)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getResource(EditModel.java:717)
+        at
+org.eclipse.wst.common.componentcore.internal.ArtifactEditModel.getResource(ArtifactEditModel.java:173)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getPrimaryResource(EditModel.java:1550)
+        at
+org.eclipse.wst.common.internal.emfworkbench.integration.EditModel.getPrimaryRootObject(EditModel.java:1531)
+        at
+org.eclipse.wst.common.componentcore.ArtifactEdit.getContentModelRoot(ArtifactEdit.java:461)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getWorkspace14ServiceRefs(WebServicesManager.java:644)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getAllWorkspaceServiceRefs(WebServicesManager.java:610)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.notifyListeners(WebServicesManager.java:268)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.visit(WebServicesManager.java:798)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:67)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:76)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.acceptDelta(WebServicesManager.java:338)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.resourceChanged(WebServicesManager.java:329)
+        at
+org.eclipse.core.internal.events.NotificationManager$2.run(NotificationManager.java:280)
+        at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+        at
+org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:274)
+        at
+org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:148)
+        at
+org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:256)
+        at
+org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:958)
+        at
+org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1746)
+        at
+org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:113)
+        at
+org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:113)
+
+!ENTRY org.eclipse.core.resources 2 1 2006-07-28 09:41:57.693
+!MESSAGE Skipping builder com.ibm.etools.common.migration.MigrationBuilder for
+project YetAnotherEjb. Either the builder is missing from the install, or it
+belongs to a project nature that is missing or disabled.
+
+*** ERROR ***: Fri Jul 28 09:41:57 EDT 2006    java.lang.NullPointerException
+        at
+org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit.getWebServices(WSDDArtifactEdit.java:154)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getInternalWebServices(WebServicesManager.java:367)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getInternalWebServicesDescriptions(WebServicesManager.java:350)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getInternalWSDLResources(WebServicesManager.java:383)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getInternalWSDLServices(WebServicesManager.java:378)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.getAllWSDLServices(WebServicesManager.java:454)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.notifyListeners(WebServicesManager.java:268)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.visit(WebServicesManager.java:798)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:67)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:76)
+        at
+org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.acceptDelta(WebServicesManager.java:338)
+        at
+org.eclipse.jst.j2ee.internal.webservice.helper.WebServicesManager.resourceChanged(WebServicesManager.java:329)
+        at
+org.eclipse.core.internal.events.NotificationManager$2.run(NotificationManager.java:280)
+        at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+        at
+org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:274)
+        at
+org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:148)
+        at
+org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:256)
+        at
+org.eclipse.core.internal.resources.Workspace.aboutToBuild(Workspace.java:187)
+        at
+org.eclipse.core.internal.resources.Workspace.build(Workspace.java:270)
+        at
+org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:621)
+        at
+org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:565)
+        at
+org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:754)
+        at
+org.eclipse.debug.ui.DebugUITools.buildAndLaunch(DebugUITools.java:551)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util.AntLauncherUtility.runUsingLauncher(AntLauncherUtility.java:150)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util.AntLauncherUtility.runAnt(AntLauncherUtility.java:129)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.util.AntLauncherUtility.launch(AntLauncherUtility.java:113)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletAntProjectBuilder.buildUsingAnt(XDocletAntProjectBuilder.java:114)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilder.build(XDocletBuilder.java:214)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilder$1.visit(XDocletBuilder.java:297)
+        at
+org.eclipse.core.internal.resources.Resource$2.visit(Resource.java:105)
+        at
+org.eclipse.core.internal.resources.Resource$1.visitElement(Resource.java:57)
+        at
+org.eclipse.core.internal.watson.ElementTreeIterator.doIteration(ElementTreeIterator.java:81)
+        at
+org.eclipse.core.internal.watson.ElementTreeIterator.doIteration(ElementTreeIterator.java:85)
+        at
+org.eclipse.core.internal.watson.ElementTreeIterator.doIteration(ElementTreeIterator.java:85)
+        at
+org.eclipse.core.internal.watson.ElementTreeIterator.doIteration(ElementTreeIterator.java:85)
+        at
+org.eclipse.core.internal.watson.ElementTreeIterator.iterate(ElementTreeIterator.java:126)
+        at
+org.eclipse.core.internal.resources.Resource.accept(Resource.java:67)
+        at
+org.eclipse.core.internal.resources.Resource.accept(Resource.java:103)
+        at
+org.eclipse.core.internal.resources.Resource.accept(Resource.java:87)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilder.doFullBuild(XDocletBuilder.java:308)
+        at
+org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.XDocletBuilder.build(XDocletBuilder.java:198)
+        at
+org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:603)
+        at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+        at
+org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:167)
+        at
+org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+        at
+org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:230)
+        at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:37)
+        at
+org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:233)
+        at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:258)
+        at
+org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:285)
+        at
+org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:145)
+        at
+org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:208)
+        at org.eclipse.core.internal.jobs.Worker.run(Worker.java:58)</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>760172</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-01 15:34:00 -0400</bug_when>
+    <thetext>The original EJB project is not able to load its metadata or web services as a result.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>763203</commentid>
+    <comment_count>2</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-07 17:29:13 -0400</bug_when>
+    <thetext>On copy and paste of a web project in WTP, for example, all of the natures in that original web project, including the java nature and web nature are copied to the new project so that they are both sharing the same instance of the nature.  The new project does get a new project info for the new name, but the data tree node and the element tree node from the workspace have the copy of the nature.  This leads to confusing and errant behaviour.  A new instance of the nature should be created for the new project.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>763247</commentid>
+    <comment_count>3</comment_count>
+      <attachid>47501</attachid>
+    <who name="Daniel Berg">danberg</who>
+    <bug_when>2006-08-07 23:00:13 -0400</bug_when>
+    <thetext>Created attachment 47501
+JUnit test case
+
+This simple JUnit test creates a java project and then copies it.  It checks that the Java nature for both projects is the same (i.e., the failure case).  The problem appears to be that the ProjectInfo is copied using a shallow copy and the natures list is the same for both projects in the workspace tree.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>763589</commentid>
+    <comment_count>4</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-08-08 11:20:03 -0400</bug_when>
+    <thetext>Thanks for the JUnit test, I can reproduce it.  The nature instance should be nulled out in the destination project on copy.  I assume you're looking for a 3.2.x stream fix for this?</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>763719</commentid>
+    <comment_count>5</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-08 14:06:59 -0400</bug_when>
+    <thetext>Yeah, we need it for WTP 1.5.1 which I'm guessing is 3.2.1 based.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>763964</commentid>
+    <comment_count>6</comment_count>
+      <attachid>47567</attachid>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-08-08 16:42:20 -0400</bug_when>
+    <thetext>Created attachment 47567
+Patch against HEAD</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>764427</commentid>
+    <comment_count>7</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-08-09 10:32:01 -0400</bug_when>
+    <thetext>Fix has been released in both 3.2.1 and 3.3 streams.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>764615</commentid>
+    <comment_count>8</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-09 13:41:20 -0400</bug_when>
+    <thetext>I verified this patch does resolve the original issue we were seeing in WTP regarding copy and paste of projects.  
+
+Thanks for the prompt response!</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>766747</commentid>
+    <comment_count>9</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-08-14 09:22:48 -0400</bug_when>
+    <thetext>*** Bug 150295 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>786122</commentid>
+    <comment_count>10</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-09-12 11:56:23 -0400</bug_when>
+    <thetext>It looks like this was never tagged for the 3.2.1 stream.  I see the version in the maintennace stream but it is not tagged nor in for the 3.2.1 builds.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>786126</commentid>
+    <comment_count>11</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-09-12 11:57:25 -0400</bug_when>
+    <thetext>*** Bug 150295 has been marked as a duplicate of this bug. ***</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>786949</commentid>
+    <comment_count>12</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-09-13 11:29:03 -0400</bug_when>
+    <thetext>Unfortunately you are correct, the project was not tagged. Since we're done with 3.2.1, this will have to go into 3.2.2.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>787018</commentid>
+    <comment_count>13</comment_count>
+    <who name="David Klein">kleind</who>
+    <bug_when>2006-09-13 12:25:08 -0400</bug_when>
+    <thetext>We have code in our 3.2.1 based product that programatically copies a J2EE project.  If this fix is not going into 3.2.1 line, I would request information on how we can programatically do a work-around in our code to fix things up after (or before) our code invokes the copy operation.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>787616</commentid>
+    <comment_count>14</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2006-09-14 08:55:08 -0400</bug_when>
+    <thetext>The fix has been tagged for 3.2.1. This was my mistake, but in the future if you have a critical bug, prompt verification that the fix works for you would be greatly appreciated.  This very nearly missed the boat for 3.2.1.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>796334</commentid>
+    <comment_count>15</comment_count>
+    <who name="John Lanuti">jlanuti</who>
+    <bug_when>2006-09-25 15:46:16 -0400</bug_when>
+    <thetext>Verified this version is released now.</thetext>
+  </long_desc>
+      
+          <attachment isobsolete="0" ispatch="0" isprivate="0">
+            <attachid>47501</attachid>
+            <date>2006-08-07 23:00:00 -0400</date>
+            <delta_ts>2006-08-07 23:00:13 -0400</delta_ts>
+            <desc>JUnit test case</desc>
+            <filename>152493Test.zip</filename>
+            <type>application/x-zip-compressed</type>
+            <size>3975</size>
+            <attacher name="Daniel Berg">danberg</attacher>
+            
+              <data encoding="base64">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
+jFSLGJJMFBriRCqIFWhZqgR0PJ66yIP3gO9BJ0oURsj8XbwJN6WCyyi/sBhd8AQepbwsu8fqaZqV
+C3EyszI3YgXxCBcPrwmcrcTjx1NulhfgJmWWYckLzE1/l6iPVBewjgd/To2Djr/yNT+pWA0lJNXX
+hjm33M0NKGuQovybiYQlGdeajWSxJfsweDWQp5pVXmL/Plx18OPRaylSRk70mRAv6jGzVHJDUYKm
+Wmbn9nakgBtg3sb0ri0wU/RvyHY0jBdgalzUoyWho97AhvDnV2GRT2EI5XeiLpXQdXAxZ9F1dZHg
+VWijo17PZdip3ic20SiHDTugIuIHLbgsID8L5mlKajj3z6TP7RvXJvJxHPDNFhVIjJIJ7ALPpnWB
+laxVoq0AKCIoM5GGsol2yA7SkoPjbCm2TM5Ru1qc2LUWzWh37cOQUY306DpKivuu1o0jE1SEPpvz
+TEOfnWlNS0VLPq1kcO5+vQE/bMdMlRDuNdI3KYQ9J2i43u/5kYPCPIIAu+nafHaFvR6yvahhc5x3
+aj/45bDWDBvl3kV1spO72c/Hhz/j+/Zl8VQ6rY4Sdud8pONOc8RjPQl3rQ1vZkuhGX42S8A8yIM0
+VZjZFiLhWbZFF4lM39zuNK87QyRlx3LfltySqzTqeYCh6b3G30Ymcm14nqDp3csDfExSQFr3tNvf
+7bdXKSjkjYZo54sdqHsDkqt7ucmbydieim9+piqxprtoOScmRWvYnRq2B36kWRo8O9OQzgHCT9Qf
+Rol88fsJIbB2WWgkBPTGH+NU77Lwtjckuvp+J4gWZ5AvcKJ8ZJ+fHHmrDaxirhTf2hkSgPvsUz8I
+apf7sVwSDezAcU/hLa7tbHlhbTqsrQnYDDpChF0LyJgoGr0yRYd8gd//AVBLBwg0BVCgBgMAAMQJ
+AABQSwECFAAUAAgACABYtwc11Ryc0qUAAAAzAQAAIAAAAAAAAAAAAAAAAAAAAAAAY29tLnByb2pl
+Y3QuY29weS50ZXN0Ly5jbGFzc3BhdGhQSwECFAAUAAgACABYtwc14vrKk+sAAACqAgAAHgAAAAAA
+AAAAAAAAAADzAAAAY29tLnByb2plY3QuY29weS50ZXN0Ly5wcm9qZWN0UEsBAhQAFAAIAAgAWLcH
+NQn0esOtAAAAKAEAACoAAAAAAAAAAAAAAAAAKgIAAGNvbS5wcm9qZWN0LmNvcHkudGVzdC9NRVRB
+LUlORi9NQU5JRkVTVC5NRlBLAQIUABQACAAIAFi3BzWEQRn/yQUAABgNAAA5AAAAAAAAAAAAAAAA
+AC8DAABjb20ucHJvamVjdC5jb3B5LnRlc3QvYmluL2NvbS9wcm9qZWN0L3Rlc3QvQ29weVRlc3Qu
+Y2xhc3NQSwECFAAUAAgACABYtwc10ltg+z8AAABQAAAAJgAAAAAAAAAAAAAAAABfCQAAY29tLnBy
+b2plY3QuY29weS50ZXN0L2J1aWxkLnByb3BlcnRpZXNQSwECFAAUAAgACABYtwc1NAVQoAYDAADE
+CQAAOAAAAAAAAAAAAAAAAADyCQAAY29tLnByb2plY3QuY29weS50ZXN0L3NyYy9jb20vcHJvamVj
+dC90ZXN0L0NvcHlUZXN0LmphdmFQSwUGAAAAAAYABgATAgAAXg0AAAAA
+</data>
+
+          </attachment>
+          <attachment isobsolete="0" ispatch="1" isprivate="0">
+            <attachid>47567</attachid>
+            <date>2006-08-08 16:42:00 -0400</date>
+            <delta_ts>2006-08-08 16:42:20 -0400</delta_ts>
+            <desc>Patch against HEAD</desc>
+            <filename>patch.txt</filename>
+            <type>text/plain</type>
+            <size>784</size>
+            <attacher name="John Arthorne">john_arthorne</attacher>
+            
+              <data encoding="base64">IyMjIEVjbGlwc2UgV29ya3NwYWNlIFBhdGNoIDEuMA0KI1Agb3JnLmVjbGlwc2UuY29yZS5yZXNv
+dXJjZXMNCkluZGV4OiBzcmMvb3JnL2VjbGlwc2UvY29yZS9pbnRlcm5hbC9yZXNvdXJjZXMvUHJv
+amVjdC5qYXZhDQo9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09DQpSQ1MgZmlsZTogL2N2c3Jvb3QvZWNsaXBzZS9vcmcuZWNs
+aXBzZS5jb3JlLnJlc291cmNlcy9zcmMvb3JnL2VjbGlwc2UvY29yZS9pbnRlcm5hbC9yZXNvdXJj
+ZXMvUHJvamVjdC5qYXZhLHYNCnJldHJpZXZpbmcgcmV2aXNpb24gMS4xMzcNCmRpZmYgLXUgLXIx
+LjEzNyBQcm9qZWN0LmphdmENCi0tLSBzcmMvb3JnL2VjbGlwc2UvY29yZS9pbnRlcm5hbC9yZXNv
+dXJjZXMvUHJvamVjdC5qYXZhCTkgSnVuIDIwMDYgMTY6NTU6MTcgLTAwMDAJMS4xMzcNCisrKyBz
+cmMvb3JnL2VjbGlwc2UvY29yZS9pbnRlcm5hbC9yZXNvdXJjZXMvUHJvamVjdC5qYXZhCTggQXVn
+IDIwMDYgMjA6NDU6MzkgLTAwMDANCkBAIC02NDMsNiArNjQzLDcgQEANCiANCiAJCS8vY2xlYXIg
+cHJvcGVydGllcywgbWFya2VycywgYW5kIGRlc2NyaXB0aW9uIGZvciB0aGUgbmV3IHByb2plY3Qs
+IGJlY2F1c2UgdGhleSBzaG91bGRuJ3QgYmUgY29waWVkLg0KIAkJaW5mby5kZXNjcmlwdGlvbiA9
+IG51bGw7DQorCQlpbmZvLm5hdHVyZXMgPSBudWxsOw0KIAkJaW5mby5zZXRNYXJrZXJzKG51bGwp
+Ow0KIAkJaW5mby5jbGVhclNlc3Npb25Qcm9wZXJ0aWVzKCk7DQogCX0NCg==
+</data>
+
+          </attachment>
+      
+
+    </bug>
+
+</bugzilla>

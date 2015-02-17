@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>307163</bug_id>
+          
+          <creation_ts>2010-03-26 05:14:00 -0400</creation_ts>
+          <short_desc>DBCS3.6: Resource Filter UI didn't restore grouped filters</short_desc>
+          <delta_ts>2010-04-16 03:58:19 -0400</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>IDE</component>
+          <version>3.6</version>
+          <rep_platform>All</rep_platform>
+          <op_sys>All</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P2</priority>
+          <bug_severity>major</bug_severity>
+          <target_milestone>3.6 M7</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Tadayuki Yoshida">tadayuki</reporter>
+          <assigned_to name="Serge Beauchamp">serge</assigned_to>
+          <cc>camle</cc>
+    
+    <cc>kitlo</cc>
+    
+    <cc>pwebster</cc>
+    
+    <cc>Szymon.Brandys</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>1700831</commentid>
+    <comment_count>0</comment_count>
+    <who name="Tadayuki Yoshida">tadayuki</who>
+    <bug_when>2010-03-26 05:14:26 -0400</bug_when>
+    <thetext>Build Identifier: I20100313-1044
+
+When reopening Resource Filters property editor after adding several filters under either of top-level AND/OR/NOT group, none of children in such top-level group filter is shown while settings are actually persisted in .project.
+
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Create a project and add some files and folders.
+2. Add resource filters to the project or the folder just created, and filters are grouped by AND/OR/NOT.
+3. Ensure filters are active for exiting resources under the project.
+4. Reopen &quot;Resource Fileters&quot; property editor
+5. Verify the filters added in Step 2 are restored.
+
+Problem:
+None of child filters under top-level AND/OR/NOT group is shown
+
+Expected:
+All nested child filters under top-level AND/OR/NOT group are totally shown.
+
+Note that persistent entries for all filters are actually existing in a .project file.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1702677</commentid>
+    <comment_count>1</comment_count>
+    <who name="Szymon Brandys">Szymon.Brandys</who>
+    <bug_when>2010-03-30 08:50:16 -0400</bug_when>
+    <thetext>Serge, please address the issue ASAP. When you can't see filters under group filters, they can be easily overridden.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1703092</commentid>
+    <comment_count>2</comment_count>
+      <attachid>163448</attachid>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-03-30 15:46:51 -0400</bug_when>
+    <thetext>Created attachment 163448
+Patch
+
+fix</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1703095</commentid>
+    <comment_count>3</comment_count>
+    <who name="Serge Beauchamp">serge</who>
+    <bug_when>2010-03-30 15:48:36 -0400</bug_when>
+    <thetext>Now fixed on head.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>1714302</commentid>
+    <comment_count>4</comment_count>
+    <who name="Tadayuki Yoshida">tadayuki</who>
+    <bug_when>2010-04-16 03:58:19 -0400</bug_when>
+    <thetext>Verified on I20100406-1034
+Group filters are restored in the property page.</thetext>
+  </long_desc>
+      
+          <attachment isobsolete="0" ispatch="1" isprivate="0">
+            <attachid>163448</attachid>
+            <date>2010-03-30 15:46:00 -0400</date>
+            <delta_ts>2010-03-30 15:46:51 -0400</delta_ts>
+            <desc>Patch</desc>
+            <filename>patch.txt</filename>
+            <type>text/plain</type>
+            <size>943</size>
+            <attacher name="Serge Beauchamp">serge</attacher>
+            
+              <data encoding="base64">IyMjIEVjbGlwc2UgV29ya3NwYWNlIFBhdGNoIDEuMAojUCBvcmcuZWNsaXBzZS51aS5pZGUKSW5k
+ZXg6IHNyYy9vcmcvZWNsaXBzZS91aS9pbnRlcm5hbC9pZGUvZGlhbG9ncy9SZXNvdXJjZUZpbHRl
+ckdyb3VwLmphdmEKPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PQpSQ1MgZmlsZTogL2N2c3Jvb3QvZWNsaXBzZS9vcmcuZWNs
+aXBzZS51aS5pZGUvc3JjL29yZy9lY2xpcHNlL3VpL2ludGVybmFsL2lkZS9kaWFsb2dzL1Jlc291
+cmNlRmlsdGVyR3JvdXAuamF2YSx2CnJldHJpZXZpbmcgcmV2aXNpb24gMS4yMApkaWZmIC11IC1y
+MS4yMCBSZXNvdXJjZUZpbHRlckdyb3VwLmphdmEKLS0tIHNyYy9vcmcvZWNsaXBzZS91aS9pbnRl
+cm5hbC9pZGUvZGlhbG9ncy9SZXNvdXJjZUZpbHRlckdyb3VwLmphdmEJMTcgTWFyIDIwMTAgMjA6
+MjQ6NTMgLTAwMDAJMS4yMAorKysgc3JjL29yZy9lY2xpcHNlL3VpL2ludGVybmFsL2lkZS9kaWFs
+b2dzL1Jlc291cmNlRmlsdGVyR3JvdXAuamF2YQkzMCBNYXIgMjAxMCAxOTo0NjozNSAtMDAwMApA
+QCAtMTU4Myw2ICsxNTgzLDE1IEBACiAJCQkJCQkJY2hpbGRyZW4uYWRkKGNoaWxkKTsKIAkJCQkJ
+CX0KIAkJCQl9CisJCQkJaWYgKGFyZ3VtZW50cyBpbnN0YW5jZW9mIEZpbHRlckNvcHlbXSkgewor
+CQkJCQlGaWx0ZXJDb3B5W10gZmlsdGVycyA9IChGaWx0ZXJDb3B5W10pIGFyZ3VtZW50czsKKwkJ
+CQkJaWYgKGZpbHRlcnMgIT0gbnVsbCkKKwkJCQkJCWZvciAoaW50IGkgPSAwOyBpIDwgZmlsdGVy
+cy5sZW5ndGg7IGkrKykgeworCQkJCQkJCUZpbHRlckNvcHkgY2hpbGQgPSBmaWx0ZXJzW2ldOwor
+CQkJCQkJCWNoaWxkLnBhcmVudCA9IHRoaXM7CisJCQkJCQkJY2hpbGRyZW4uYWRkKGNoaWxkKTsK
+KwkJCQkJCX0KKwkJCQl9CiAJCQl9CiAJCX0KIAl9Cg==
+</data>
+
+          </attachment>
+      
+
+    </bug>
+
+</bugzilla>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE bugzilla  SYSTEM 'https://bugs.eclipse.org/bugs/page.cgi?id=bugzilla.dtd'><bugzilla maintainer="webmaster@eclipse.org" urlbase="https://bugs.eclipse.org/bugs/" version="4.4.1">
+
+    <bug>
+          <bug_id>86263</bug_id>
+          
+          <creation_ts>2005-02-23 09:37:00 -0500</creation_ts>
+          <short_desc>Constructing singularity/plurality through variable substitution in property strings.</short_desc>
+          <delta_ts>2005-02-25 11:51:57 -0500</delta_ts>
+          <reporter_accessible>1</reporter_accessible>
+          <cclist_accessible>1</cclist_accessible>
+          <classification_id>2</classification_id>
+          <classification>Eclipse</classification>
+          <product>Platform</product>
+          <component>Resources</component>
+          <version>3.0.1</version>
+          <rep_platform>PC</rep_platform>
+          <op_sys>All</op_sys>
+          <bug_status>CLOSED</bug_status>
+          <resolution>FIXED</resolution>
+          
+          
+          <bug_file_loc/>
+          <status_whiteboard/>
+          <keywords/>
+          <priority>P3</priority>
+          <bug_severity>normal</bug_severity>
+          <target_milestone>3.1 M6</target_milestone>
+          
+          
+          <everconfirmed>1</everconfirmed>
+          <reporter name="Jonathan Simpson">jjsimpso</reporter>
+          <assigned_to name="Platform-Resources-Inbox">platform-resources-inbox</assigned_to>
+          <cc>camle</cc>
+    
+    <cc>dwhare</cc>
+          
+          <votes>0</votes>
+
+      
+
+      
+
+      
+
+          <comment_sort_order>oldest_to_newest</comment_sort_order>  
+          <long_desc isprivate="0">
+    <commentid>404754</commentid>
+    <comment_count>0</comment_count>
+    <who name="Jonathan Simpson">jjsimpso</who>
+    <bug_when>2005-02-23 09:37:11 -0500</bug_when>
+    <thetext>In the file:
+
+eclipse\plugins\org.eclipse.core.resources\ant_tasks\resources-
+ant_jar\org\eclipse\core\resources\ant\messages.properties
+
+the translators have a problem with the following property strings:
+
+copy.files=Copying {0} file{1} to {2}.
+copy.result=Copied {0} empty director{1} to {2}.
+
+It appears that the {1} in both strings is used to create plurality in cases 
+where {0} is greater than one.  Since different languages handle this 
+differently the translators are having a problem.
+
+How do we currently handle these types of situations in DBCS languages where 
+this would also be a problem?  Is the source variable for {1} dependent on the 
+value of {0}?  If so, can you provide the source variables so that I can pass 
+that along to the translators?  And finally, is removing {1} from the string an 
+acceptable solution for those languages which don't have different word endings 
+for singular and pural nouns.
+
+Thanks.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>405052</commentid>
+    <comment_count>1</comment_count>
+    <who name="John Arthorne">john_arthorne</who>
+    <bug_when>2005-02-23 14:36:05 -0500</bug_when>
+    <thetext>Sigh.  Those message keys are unused, and have never been used as far as I can
+tell.  They certainly aren't referenced in 3.0 or 3.1.  I have deleted them.  I
+agree that it should not have been constructing the plural form of the noun that
+way.
+
+I guess your workaround is to not bother translating those messages.  Sorry for
+the confusion.</thetext>
+  </long_desc><long_desc isprivate="0">
+    <commentid>406343</commentid>
+    <comment_count>2</comment_count>
+    <who name="Jonathan Simpson">jjsimpso</who>
+    <bug_when>2005-02-25 11:51:57 -0500</bug_when>
+    <thetext>Thanks for the update.  That was the answer I was hoping for :)
+</thetext>
+  </long_desc>
+      
+      
+
+    </bug>
+
+</bugzilla>
